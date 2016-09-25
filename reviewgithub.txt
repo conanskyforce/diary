@@ -1,0 +1,27 @@
+1.install git then set name&email
+git config --global user.name "conanskyforcce"//set user nme
+git config --global user.email "conanskyforce@gmail.com"//set user email
+2.creat a new repository
+mkdir newdirectory//create a new directory
+cd newdirectory//get into that directory
+git init//initialized an empty git repository in newdirectory
+git add xxx.txt(git add .)//add a file(add all changed files)to stage page
+git commit -m "annotation"//commit a file to master branch
+3.git status//see the status
+git diff//see differences
+git log//see logs
+git log --pretty=oneline//brief mode
+git reset --hard HEAD^//go back to last version(HEAD means this version,HEAD^means last version,HEAD^^ vice versa)
+git reset --hard hashnumber//go to any version before or after with hash number
+git reflog//see the command log
+4.git checkout -- file//abort the change in working space
+git reset HEAD file//abort the file commited to stage
+5.git rm file//delete file
+git checkout --file//if you misdelete,reback
+
+
+
+
+
+
+
