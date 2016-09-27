@@ -43,7 +43,18 @@ git merge --no-ff -m"note" abc//no fast-forward mode
 10.storage temporaryly
 git stash//storage temporaryly
 git stash pop//reback and delete stash
-
+11.delete branch
+git branch -D abc//delete abc branch forcely
+12.cooperation
+git remote//see remote repository default origin
+git remote -v//see details
+git push origin master//push master branch
+git push origin abc//push abc branch
+git checkout -b abc origin/abc//create a remote branch abc
+a.git push origin branch-name//push your own modify
+b.git pull//pull remote newest file
+git branch --set-upstream branch-name origin/branch-name//create relationship
+c.slove conflicts
 
 
 
