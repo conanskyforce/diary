@@ -55,6 +55,10 @@ a.git push origin branch-name//push your own modify
 b.git pull//pull remote newest file
 git branch --set-upstream branch-name origin/branch-name//create relationship
 c.slove conflicts
+13.tag for a version
+git tag//see all tags
+git tag v1.0//set this branch tag v1.0
+git tag v 0.9 324167//set tags by commit id
 
 
 
