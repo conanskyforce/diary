@@ -64,7 +64,8 @@ git tag -d v1.0//delete v1.0 tag
 git push origin v1.0//push tag to remote
 git push origin --tags//push all tags one time
 git push origin :refs/tags/v1.0//delete remote tags
-
+14.ignore
+.gitignore//the files or directories ignored
 
 
 
