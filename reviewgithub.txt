@@ -66,6 +66,9 @@ git push origin --tags//push all tags one time
 git push origin :refs/tags/v1.0//delete remote tags
 14.ignore
 .gitignore//the files or directories ignored
+14.about branch
+git push --set-upstream origin abc //set abc directly push
+git push origin abc//push abc branch
 
 
 
