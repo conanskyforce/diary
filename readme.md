@@ -1,10 +1,3 @@
-#我是标题#
-`我是代码，你能看见我吗
-`
-**我是加粗**
-*我是斜体*
-> 我是引用
-1. 我是数字
-2. 我还是数字
-
------------
+#This is my diary repository...[⊙﹏⊙∥](https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=156450846,1014404367&fm=58)
+It contains my daily records about  life friends happiness and sorrows.
+##OK I will try my best to write some interesting things and about coding or anything else.
