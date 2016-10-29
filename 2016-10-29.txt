@@ -1,0 +1,9 @@
+google chrome browser shows ¡°cannot load flash player¡±.
+To solve this problem,I searched one hundred answers by baidu,but with all bullshit£¬then I try with google surprising,the first answer help me solve this problem.
+the file under
+C:\Users\conan\AppData\Local\Google\Chrome\User Data\PepperFlash\23.0.0.205\
+pepflashplayer.dll
+change it into 
+pepflashplayerX.dll
+that's OK.
+: )
