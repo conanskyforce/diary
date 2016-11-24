@@ -69,8 +69,3 @@ git push origin :refs/tags/v1.0//delete remote tags
 14.about branch
 git push --set-upstream origin abc //set abc directly push
 git push origin abc//push abc branch
-
-
-
-
-
