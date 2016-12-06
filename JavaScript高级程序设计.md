@@ -267,29 +267,93 @@ book.choose = 'find me lady'
 book.num //'find me lady'
 
 
+var book= {};
+Object.defineProperties(book,{
+	_year:{
+		value:2016
+	},
+	edition:{
+		value:"v1.0"
+	},
+	year:{
+		get:function(){
+			return Date.now()
+		},
+		set:function(newv){
+			if(newv==2016){
+				this.editon="v1.0";
+			}else if(newv>2016){
+				this.edition="v1.1";
+			}else{
+				this.edition="v0.9";
+			}
+		}
+	}
+})
 
+###工厂模式
+function createPerson(name,age,job){
+	var o = new Obejct();
+	o.name = name;
+	o.age =age;
+	o.job =job;
+	o.sayName = function(){
+		console.log("hello "+this.name);
+	};
+	return o;
+}
+var p1 = createPerson("conan",24,"PE");
+var p2 = createPerson("steve",32,"PM");
+构造函数：
+function Person(name,age,job){
+	this.name = name;
+	this.age = age;
+	this.job = job;
+	this.sayName =function(){
+	console.log("hello "+this.name);
+	}
+}
+var p1 = new Person("jobs",32,"PW");
+var p2 = new Person('kelly',22,"SG");
+p1.constructor == Person
+p2.constructor == Person
+p1 instanceof Person//true
+p1 instanceof Object//true
+Person instanceof Object//true
 
+构造函数的prototype属性指向一个对象，也就是通过调用构造函数而创建的那个实例对象的原型对象。
 
+所有原型对象都会自动获得一个constructoer属性，这个属性包含一个自称prototype属性所在函数的指针。
+function Person(){
+}
+Person.prototype.constructor == Person
 
+每个构造函数创建的实例，都有一个属性__proto__指向构造函数的原型对象
 
+Person//构造函数
+prototype//构造函数有这么个属性
+Person.prototype//这个属性也是一个对象，叫原型对象
+constructor//原型对象有这么个属性
+Person.prototype.constructor//原型对象的这么个属性指向构造函数本身
 
+a.isPrototypeOf(b)//a是b上边的原型
+Person.protype.isPrototypeOf(person1);//
 
+Object.getPrototypeOf(a)//取得a对象的原型
+Object.getPrototypeOf(person1);//Person.prototype;
 
+hasOwnProperty()//检测一个属性是否只存在于对象实例中
 
+in操作符，原型上如果有这个属性也会返回true
 
+返回原型中的属性
+function hasPrototypeProperty(object,name){
+	return !object.hasPrototypeProperty(name)&&(name in object)
+}
 
+取得对象上所有可以枚举的实例属性，可以使用Object.keys()方法。
 
-
-
-
-
-
-
-
-
-
-
-
+Object.getOwnpropertyNames()//得到所有实例属性，不论他是否可枚举。
 
 
 
