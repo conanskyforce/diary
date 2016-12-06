@@ -70,12 +70,201 @@ colors instanceof Array//colors是Array吗
 pattern instanceof RegExp//pattern是RegExp吗
 
 所有引用类型都是Object的实例，所以
-instanceof能够区分null和Object，
+instanceof能够区分null和Object，判断它是哪一种引用类型
 Array.isArray()能够判断是不是数组
 
 if和for循环中定义的变量没有块级作用域
 访问局部变量比访问全局变量要快，不用沿着作用链一直向上找，节省时间
 
+###第五章，引用类型P102
+
+对象是某个特定引用类型的实例
+5.1Object对象
+创建Object实例的方式有两种：
+1.var person = new Obeject();
+person.name = "conan";
+person.age = 25
+
+2.对象字面量的属性名会自动转换为字符串
+var person = {
+	name:"conan",
+	age:25
+};
+
+5.2Array 数组
+1.var colors = new Array()
+
+2.var colors = [1,2,'',true,undefined]
+
+Array.isArray(arr)判断arr是不是数组
+它也有toString()方法
+arr.join(""),以不同的分隔符来构建这个字符串
+不给join传递参数，或传入undefined，则默认用逗号作为分隔符
+null，undefined，在join(),toLocalStrin(),toString(),valueOf()返回空字符串
+
+push(),pop()方法，从数组末尾添加，删除元素
+unshift()，shift()方法，从数组头部添加，删除元素
+
+reverse(),sort()方法进排序
+arr.sort(function(x,y){return x-y})
+
+concat()拼接数组
+arr1.concat(arr2,123)
+
+slice()切片
+arr.slice()//数组复制
+arr.slice(1,3)//s索引1到索引3不包括3
+
+splice(a,c,b,d)//从a出删除c项，增加b和d
+
+arr.indexOf('a')//'a'在数组arr中的索引
+
+迭代方法：
+every()//每一项都true，返回true
+filter()//返回返回true的项目组成的数组
+forEach()//对数组每一项运行函数
+map()//map()嘛，映射
+some()//有一项返回true结果就是true
+reduce()和reduceRight()//从左和从右开始。
+***
+看某个程序执行所耗费时间
+var start = Date.now();
+console.log('asd');
+var stop = Date.now();
+result = stop - start;
+<====>
+var start = new Date();
+console.log('asd');
+var stop = new Date();
+result = stop - start;
+
+var start = new Date();
+console.log('asd');
+var stop = new Date();
+result = stop - start;
+console.log(start.valueOf())
+console.log(stop.valueOf())
+***
+
+使用不带圆括号的函数名是访问函数指针，而不是调用函数
+
+函数申明会被变量提升(hoist)
+函数申明放在前边
+
+this、arguments、callee
+arguments用来保存实际参数
+arguments的callee属性是一个指针， 指向拥有这个arguments对象的函数!
+function abc(){
+	return arguments.callee//返回函数名
+	//<==>等价于return abc
+	}
+
+阶乘递归函数:
+function factorial(num){
+	if(num<=1){
+	return 1;
+}	else{
+	return num*arguments.callee(num-1);
+}
+}
+n=factorial
+n(5)//120
+
+this引用的是函数以执行的环境对象
+
+函数的属性和方法
+每个函数都包含两个属性，length和prototype
+length表示函数希望接受的命名参数的个数，
+
+每个函数都包含两个方法：apply()和call()，用于设置函数this的指向。apply()接受两个参数，第一个是(其中运行函数的作用域)this，第二个是参数数组，也可以是arguments。
+.apply(this,arguments|[])//数组
+.call(this,num1,num2)//逐条列举
+
+bind()方法，创建一个函数的实例，其this值会被绑定到传给bind()函数的值。
+
+函数的toLocalString(),toString(),valueOf()方法都返回函数代码
+
+charAt()和charCodeAt()
+索引位置字符串，索引位置字符串编码
+
+var str= 'Hello ,My friends';
+var charat = '';
+var charcodeat="";
+for(var i=0;i<str.length;i++){
+	charat+=str.charAt(i);
+	charcodeat+=str.charCodeAt(i)+',';
+}
+console.log(charat)//Hello ,My friends
+console.log(charcodeat)//72,101,108,108,111,32,44,77,121,32,102,114,105,101,110,100,115,
+charCodeAt()//对应索引值的字符编码
+<===>
+fromCharCode()//字符编码转为字符串
+String.fromCharCode(72,101,108,108,111,32,44,77,121,32,102,114,105,101,110,100,115)
+
+字符串操作方法：
+
+slice()
+substr()//第二个参数是返回参数的个数
+substring()
+
+搜索指定字符串的位置，没找到返回-1
+indexOf()
+lastIndexOf()
+
+字符串的match()方法，本子上与exec()相同，返回的是数组，数组第一项是与整个模式匹配的字符串，之后的每一项是捕获组匹配的字符串。
+
+字符串的search()方法，返回字符串中第一个匹配项的索引，没有找到则返回-1。
+
+字符串的replace()方法
+
+string.replace(/[\/\\\*]*/g,"ABC")//将字符串中\,*替换为ABC
+
+split()指定分隔符将字符串分割成子字符串并放在数组之中。
+
+URI编码方法
+
+encodeURI()方法对整个URI编码
+encodeURIComponent()对后边一段进行编码，主目录下的URI，对所有非标准字符都进行编码。特别是查询字符串参数，post的信息等等
+
+对应方法：
+decodeURI()//只能解码encodeURI部分
+decodeURIComponent()//解码任何特殊编码
+
+eval()里边的脚本会被执行，是种非常危险的方法。
+
+我需要(a,b)之间的任意(整数)数值
+
+Math.floor(Math.random()*(b-a)+a)
+
+P157
+
+第六章、面向对象的程序设计
+
+1.数据属性
+var person = {};
+Object.defineProperty(person,"name",{
+	writable:false,
+	value:"conan",
+	enumerable:false,
+	configurable:false
+});
+alert(person.name);//"conan"
+2.访问器属性
+var book = {
+	name : "conan biography",
+	num : 2
+};
+Object.defineProperty(book,'choose',{
+	get:function(){
+	return "you choose "+this.name;
+	},
+	set:function(val){
+	this.num = val;
+	}
+})
+book.choose//you choose conan biography
+book.choose = 'find me lady'
+book.num //'find me lady'
 
 
 
@@ -86,6 +275,46 @@ if和for循环中定义的变量没有块级作用域
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*******
 //设置定时器
 setInterval(
 function(){
@@ -96,11 +325,19 @@ console.log($('.imgpage li')[i].getAttribute("data-objurl"))}},200)
 for(var i=0;i<99999;i++){
 	clearInterval(i);
 }
+*******
 
 
 
-
-
+*****
+str="";
+strf="";
+for(var i=0;i<str.length;i++){
+strf+=str.charCodeAt(i)+',';
+}
+strf=strf.substring(0,strf.length-1);
+String.fromCharCode(strf);
+*****
 
 
 
