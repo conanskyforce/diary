@@ -355,10 +355,53 @@ function hasPrototypeProperty(object,name){
 
 Object.getOwnpropertyNames()//得到所有实例属性，不论他是否可枚举。
 
+组合使用构造函数模式和原型模式
+function Person(name,age,job){
+	this.name=name;
+	this.job=job;
+	this.age=age;
+	this.friends = ["conan","steve","bill"]
+};
+Person.prototype = {
+	constructor:Person,
+	sayName:function(){
+		console.log(this.name);
+	}
+};
+var p1 = new Person();
+var p2 = new Person();
+p1.friends.push("elong");
+p1.friends//["conan","steve","bill","elong"]
+p2.friends//["conan","steve","bill"]
+p1.friends==p2.friends//false
+上边这个例子当中，实例属性都是花在构造函数中定义的，而由实例
+共享的属性constructor和方法则是在原型中定义的。
 
+每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，实例都包含一个指向原型对象的内部指针。
 
+确定原型和实例之间的关系
+a instanceof b//a是b的原型
+a.prototype.isPrototypeOf(b)//a.prototype是b的原型对象
 
+###函数表达式
 
+var myfunc=function(){
+	//do something here.
+}
+
+严格模式下仍然行得通哦
+var factorial = (function f(num){
+	if(num<=1){
+		return 1;
+	}else{
+		return num*f(num-1);
+	}
+});
+b=factorial;
+factorial=null;
+b(4)//仍然有效
+
+**闭包**
 
 
 
