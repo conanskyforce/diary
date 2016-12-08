@@ -403,11 +403,89 @@ b(4)//仍然有效
 
 **闭包**
 
+匿名函数可以用来模仿块级作用域
+(function () {
+	// block intervene area...
+})();
+创建一个函数，并立即执行
+(function(){
+	var now = new Date();
+	if(now.getMonth()==0&&now.getDate()==1){
+		alert("元旦快乐!");
+	}
+})();
+这种思路牛逼啊，像定时炸弹一样。
 
+特权方法：能够访问私有变量和私有函数的公有方法!
 
+##第八章 BOM
 
+BOM和核心是window，它表示浏览器的一个实例。
+####全局作用域
+在全局作用域中申明的变量，函数都会成为window对象的属性和方法。
+在chrome中都支持
+浏览器距离屏幕左上角左边距离
+window.screenLeft
+window.screenX
+浏览器距离屏幕左上角上边距离
+window.screenTop
+window.screenY
 
+//被禁用
+window.moveTo(0,0)//移到左上角
+window.moveTo(200,300)//移到左上角对准屏幕的200,300点
+window.moveBy(0,100)//向下移动100
+window.moveBy(-100,0)//像左移动100
 
+window.innerWidth//可视区域宽
+window.outerWidth//浏览器宽
+window.innerHeight//可视区域高
+window.outerHeight//浏览器高
+
+页面视口的大小
+document.body.clientWidth||document.documentElement.clientWidth;
+document.body.clientHeight||document.documentElement.clientWHeight;
+
+window.open("http://www.baidu.com","_blank","height=400,width=400,top=10,left=10,menubar=no")
+
+if(confirm("are u sure?")){
+	//confirm 为 yes 才执行本段
+}
+
+var result = prompt("What's ur name?","");
+if(result!=null){
+	alert("hello"+result);
+}
+解析查询端字符串，返回一个参数对象
+(function getquerystring(){
+	var qs=(location.search.length>0?location.search.substring(1):''),
+	args={},
+	items = qs.length?qs.split("&"):[],
+	item =null,
+	name = null,
+	value = null,
+	i=0,
+	len=items.length;
+	for(i=0;i<len;i++){
+		item = items[i].split("=");
+		name = decodeURIComponent(item[0]);
+		value = decodeURIComponent(item[1]);
+		if(name.length){
+			args[name] = value;
+		}
+	}
+	return args;
+})();
+
+##客户端检测
+
+##第十章DOM
+p266
+
+每个节点都有一个childNodes属性，保存着一个NodeList对象
+var firstChild=someNode.childNodes[0]
+var secondChild=someNode.childNodes.item(1)//someNode.childNodes[1];
+var count=someNode.childNodes.length;
 
 
 
