@@ -566,10 +566,54 @@ head.appendChild(style);
 1.querySelector()返回第一个
 2.querySelectorAll()返回所有
 返回Nodelist中每一个元素，可以使用方括号方法，也可以使用.item(i)方法
+p307
+document.readyState有两种状态
+loading和complete
+if(document.readyState=="complete"){
+	//window.onload=function(){}
+}
 
+document.compatMode浏览器采用了那种渲染模式
+CSS1Compat---标准模式
+BackCompat---混杂模式
 
+document.head==document.getElementsByTagName('head')[0]
 
+HTML5规定，可以为元素添加非标准的属性，但要添加前缀data-
+data-whatever='';//提供与渲染无关的信息或者提供语义。
+ele.dataset.whatever//访问自定义的属性
 
+element.children==element.childNodes
+mydiv.style.cssText=""//将重写mydiv的css样式!
+
+offsetWidth,offsetHeight//元素宽高，包括边框内边距，内容
+clientWidth,clientHeight//元素宽高，不包括边框
+
+scrollLeft//被隐藏在内容区域左边的宽度
+scrollTop//被隐藏在内容区域上方的高度，向下滚，则变大
+scrollHeight,scrollWidth//没有滚动条情况下内容区域的宽高
+
+跨浏览器确定文档的总高度
+var docWidth=Math.max(document.body.scrollWidth||document.documentElement.scrollWidth,document.body.clientWidth||document.documentElement.clientWidth);
+var docHeight=Math.max(document.body.scrollHeight||document.documentElement.scrollHeight,document.body.clientHeight||document.documentElement.clientHeight);
+
+function backToTop(){
+	if(document.body.scrollTop!=0){
+		document.body.scrollTop=0;
+	}
+	if(document.body.scrollLeft!=0){
+		document.body.scrollLeft=0;
+	}
+}
+setInterval(backToTop,100);
+
+HTML指定事件处理程序---直接在元素中onclick="function(){}"
+
+DOM0级事件
+myele.onclick=function(){
+	//this指向元素本身！
+}
+DOM2级事件
 
 
 
