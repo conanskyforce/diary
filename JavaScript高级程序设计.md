@@ -486,6 +486,48 @@ p266
 var firstChild=someNode.childNodes[0]
 var secondChild=someNode.childNodes.item(1)//someNode.childNodes[1];
 var count=someNode.childNodes.length;
+someNode.firstChild=someNode.childNodes[0]
+someNode.lastChild=someNode.childNodes[someNode.childNodes.length-1]
+关于特性:
+a.getAttribute("mydefine")//可以获得自定义特性
+a.mydefine//这个却不一定能用哦，IE居然能用!
+所以开发过程中一般只使用对象的属性，只有在取得自定义特性值的前提下，才回去用getAttribute()方法
+a.setAttribute('href','http://www.conanskyforce.github.io')//
+a.id="asdv",a.href="xxx"//特性(原生就有的)可以直接赋值
+removeAttribute()//
+
+var div=document.createElement('div')
+var div=document.createElement('<div id="myid" class="myclass"></div>')
+div.id="mydiv"
+div.className="myclass"
+document.body.appendChild(div)
+
+元素的所有子节点，IE会忽略ul中li之间的空白，其他浏览器会将其当做文本节点
+for(var i=0;i<element.childNodes.length;i++){
+	if(element.childNodes[i].nodeType==1){
+		//do sth here
+	}
+}
+Text类型
+nodeType为3
+nodeName为#Text类型
+nodeValue为文本包含的值
+var txt=document.createTextNode('<em>emphasize</em>');
+var div=document.createElement('div');
+div.appendChild(txt);
+document.body.appendChild(div);
+
+包含一个以上文本节点的父元素使用normalize()方法，将文本节点合一，拼接起来
+
+
+
+
+
+
+
+
+
+
 
 
 
