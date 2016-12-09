@@ -613,7 +613,56 @@ DOM0级事件
 myele.onclick=function(){
 	//this指向元素本身！
 }
+myele.onclick=null可以删除事件
 DOM2级事件
+addEventListener()和
+removeEventListener()
+
+myele.addEventListener('click',func,false//冒泡);
+removeEventListener()无法移除匿名参数
+
+var EventUtil = {
+	addHandler:function(element,type,handler){
+		if(element.addEventListener){
+			element.addEventListener(type,handler,false);
+		}else if(element.attachEvent){
+			element.attachEvent('on'+type,handler);
+		}else{
+			element["on"+type]=handler;
+		}
+	},
+	removeHandler:function(element,type,handler){
+		if(element.removeEventListener){
+			element.removeEventListener(type,handler,false);
+		}else if(element.detachEvent){
+			element.detachEvent("on"+type,handler);
+		}else{
+			element["on"+type] = null;
+		}
+	}
+};
+var div = document.getElementsByTagName('div')[0]
+handler=function(){
+	//sth here
+}
+EventUtil.addHandler(div,'click',handler);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
