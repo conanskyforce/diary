@@ -519,7 +519,53 @@ document.body.appendChild(div);
 
 包含一个以上文本节点的父元素使用normalize()方法，将文本节点合一，拼接起来
 
+var attr=document.createAttribute('href')//创建新的特性节点
+attr.value='http://baidu.com';
+element.setAttributeNode(attr);
 
+####动态脚本
+加载名为123.js的js脚本
+function loadscript(url){
+	var script=document.createElement('script');
+	script.src=url;
+	script.type="text/javascript";
+	document.body.appendChild(script);
+}
+loadscript(url);
+亦或:
+function loadscript(url){
+	var script=document.createElement('script');
+	var sccontent= document.createTextNode("function myfunc(url){alert(\"Hello!\"+url)}");
+	//或者 script.text='function myfunc(){alert("Hello")';
+	script.type="text/javascript";
+	script.appendChild(sccontent);
+	document.body.appendChild(script);
+}
+loadscript(url);
+
+####动态样式
+创建并加载123.css(link方式)
+function loadStyles(css){
+	var link=document.createElement('link');
+	link.rel="stylesheet";
+	link.type="style/css";
+	link.href=css;
+	var head = document.getElementsByTagName('head')[0];
+	head.appendChild(link);
+}
+loadStyles(css);
+创建style标签来加载样式
+
+var style=document.createElement('style');
+var stylecontent=document.createTextNode('body{color:red}');
+style.appendChild(stylecontent);
+var head= document.getElementsByTagName('head')[0];
+head.appendChild(style);
+
+####DOM扩展
+1.querySelector()返回第一个
+2.querySelectorAll()返回所有
+返回Nodelist中每一个元素，可以使用方括号方法，也可以使用.item(i)方法
 
 
 
