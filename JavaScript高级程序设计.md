@@ -732,6 +732,46 @@ clientY +scrollTop == pageY
 screenX:相对于电脑屏幕的x
 screenY:相对于电脑屏幕的y
 
+鼠标滚轮事件
+
+document.onmousewheel=function(e){
+	alert(e.wheelDelta);
+}
+
+键盘与文本事件
+keydown：按下键盘任意字符时，按住不放，会重复触发此事件
+keypress：按下键盘任意字符时，按住不放，会重复触发此事件
+keyup：释放键盘触发
+
+p421
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
