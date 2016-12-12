@@ -647,27 +647,90 @@ handler=function(){
 }
 EventUtil.addHandler(div,'click',handler);
 
+P374事件对象
+DOM中的事件对象
 
+var btn = document.getElementsByTagName('btn')[0];
+btn.onclick=function(event){
+	console.log(event.target);
+}
+0级事件
+<input type="button" value="click me" onclick="alert(event.type)"/>
+var btn=document.getElementsByTagName('input')[0];
+var handler = function(event){
+	switch(event.type){
+		case "click":
+			alert("clicked");
+			event.preventDefault();//阻止默认行为
+			event.stopPropagation();//阻止冒泡
+			break;
+		case "mouseover":
+			event.target.style.backgroundColor="red";
+			break;
+		case "mouseout":
+			event.target.style.backgroundColor="";
+			break;
+	}
+};
 
+btn.conclick = handler;
+btn.onmouseover = handler;
+btn.onmouseout = handler;
 
+IE中的事件对象
 
+DOM0级事件中，event是window对象的一个属性
+使用attachEvent()方法的时候，也能通过window对象来反问event对象，不过
+也能作为一个参数传递
 
+IE中的事件属性方法
+cancelBubble=true ==> stopPropagation()
+returnValue=false ==>preventDefault() 
+srcElement ==>target
+type
 
+#事件类型
 
+UI事件
+load：加载完成之后触发
+unload：卸载完全之后触发
+abort：停止下载过程中
+error：当发生错误时触发
+select：选择文本框中字符时候触发
+resize：窗口大小变化时候触发
+scroll：时候触发
+焦点事件
+blur：失去焦点时候
+focus：获得焦点时候，不冒泡
+focusin：获得焦点，冒泡
+鼠标与滚轮事件
+click：单击时候触发
+dbclick：双击时候触发
+mousedown：按下鼠标键触发
+mouseenter：移入时触发，不冒泡
+mouseleave：离开时候触发，不冒泡
+mousemove：在内部移动时候触发
+mouseout：移出时候触发
+mouseover：移入时候触发
+moouseup：释放按键时触发
+(1)mousedown
+(2)mouseup
+(3)click
+(4)mousedown
+(5)mouseup
+(6)click
+(7)dbclick
 
+var btn=document.getElementsByTagName('body')[0];
+btn.onmousemove=function(e){
+	console.log("clientX: "+e.clientX+"\n"+'clientYY: '+e.clientY)
+	console.log("pageX: "+e.pageX+"\n"+'pageY: '+e.pageY)
+}
+clientX +scrollLeft == pageX
+clientY +scrollTop == pageY
 
-
-
-
-
-
-
-
-
-
-
-
-
+screenX:相对于电脑屏幕的x
+screenY:相对于电脑屏幕的y
 
 
 
