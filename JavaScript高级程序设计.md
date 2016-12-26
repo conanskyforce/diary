@@ -744,6 +744,262 @@ keypress：按下键盘任意字符时，按住不放，会重复触发此事件
 keyup：释放键盘触发
 
 p421
+内存和性能
+交互过多，性能下降---事件委托
+在父元素绑定一个事件，然后由子元素的冒泡传递到父元素处理
+不需要的程序太多--
+移除带有事件处理程序的元素时候，手工移除事件处理程序
+tbn.onxxx = null
+
+模拟事件
+
+<input	type="image" src="xxx.jpg"/>
+图像提交表单
+<input type="reset" value="reset form">
+
+ES6最新引入的Iterable类型，Array,Map,Set都是属于Iterable理性的值，都能够使用for of迭代
+for of修正了for in 对数组，字符串存在的一些问题。
+for in 对于Array和String来说，遍历的其实是index!
+Iterable内置有forEach()方法
+arr.forEach(function(ele,indes,arr){
+	//do sth here.
+})
+
+set.forEach(function(ele,sameele,set){
+	//do sth here.
+})
+
+map.forEach(function(value,key,map){
+	//do sth here.
+})
+
+javascript 中arguments关键字，指向函数内部实际传入的参数，是个类数组哟
+arguments.callee指向函数名称！
+不定义任何形参都能拿到参数并使用参数。
+ES6引入rest参数，表示不定形参
+
+在for循环等语句块中
+ES6引入的新的关键字let代替var可以声明块级作用域。
+const用于声明常量，具有块级作用域
+
+apply
+接受两个参数，第一个是this要绑定在谁身上，第二个是函数本身。
+普通函数this绑定为null。
+var xiaoming={
+	name:"conan",
+	birthday:1991,
+	age:function(){
+	var that=this;//在进一层的时候this就不是当前对象啦
+		function getAge(){
+		var year=new Date().getFullYear();
+		return year-that.birthday;
+		}
+		return getAge();
+	}
+};
+xiaoming.age();
+
+注意
+var arr=['1','2','3','3']
+var r=arr.map(Math.pow)
+r//1,2,9,9
+
+var arr=['1','2','3']
+var r=arr.map(function(x){
+	return x*x;
+})
+r//1,4,9
+
+闭包
+pow2(x)==>x*x
+pow3(x)==>x*x\*x
+try{
+	function make_pow(n){
+		return function(x){
+			return Math.pow(x,n)
+		}
+	}
+	throw new Error("测试")
+}catch(e){
+	alert("错误： "+e)
+}finally{
+	console.log('finished!')
+}
+pow2=make_pow(2);
+pfow3=make_poe(3);
+
+try{
+	//需要检测部分
+}catch(e){
+	//抛出错误
+}finally{
+	//最后怎样
+}
+
+Error对象，TypeError，ReferenceError
+
+try{
+	...
+}catch(e){
+	if(e instanceof TypeError){
+	alert("TypeError!");
+}else if(e instanceof Error){
+	alert(e.message);
+}else{
+	alert("Error: "+e);
+}
+}
+
+throw new Error("错误")//抛出一个新错误，直接到catch语句
+
+#离线应用与客户端缓存
+
+navigator.onLine属性检测是否联网,是,返回true,否,返回false
+HTML5定义两个事件,online和offline,这两个事件在window对象上触发
+应用缓存applicationCache
+数据储存
+--
+--
+
+最佳实践
+- 可维护性的代码
+1.可解释,其他人一上手就能理解并明白它的意图,无需开发人员的完整解释
+2.直观性,不管操作过程是多么复杂
+3.可适应性,修改不需要重写
+4.可扩展,必须考虑到将来的扩展性
+5.可调试性
+6.一般4个空格的缩进,制表符在不同文本编辑器中不同
+7.函数和方法,注释其目的,用于完成的任何,是否有返回值,参数等等
+8.大段代码前,放注释
+9.复杂的算法,加注释
+10.hack加注释
+11.变量和函数命名:
+变量名为名词如car,person等,函数名以动词开始,如getName(),返回布尔值的函数一般以is开头,变量和函数使用合乎逻辑的名字.
+12.初始化变量,告诉大家,这个变量将来会是什么类型的
+
+- 保证代码性能
+
+- 部署代码
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
