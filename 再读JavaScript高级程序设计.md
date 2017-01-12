@@ -141,21 +141,89 @@ person instanceof Person;//true
 变量申明，使用var申明变量，会将变量自动添加到最接近的环境之中。
 如果没用var则直接添加到全局环境中。
 
+#引用类型
 
+1. Object类型 
+对象是某个特定引用类型的实例
 
+var person = {};//与 new Object()相同
 
+访问对象属性方法
+.操作符
+[]操作符，可以访问变量
+2. Array类型
+数组每一项可以保存任意类型的数据
+创建数组
+new Array(值/数组长度)
+Array(值/数组长度)
+访问数组值用方括号加基于0的数字索引
+设置亦然，注意设置能改变数组长度
+数组的长度length属性也是可写的
 
+2.1 检测数组
+arr instanceof Array
+Array.isArray(arr)不受限于全局环境
 
+2.2转换方法
+arr.toString()返回的是字符串
+arr.valueOf()返回的还是数组
+调用alert方法会调用toString()方法
+arr.join()方法默认逗号作为分隔符
 
+2.3栈方法
+栈数据结构的访问规则:后进先出(last in first out)
+arr.push()添加数组值(末尾)，返回修改后数组长度
+arr.pop()去除数组值(末尾)返回删除的那个值
 
+2.4队列方法
+队列数据结构的访问规则是FIFO(First In First Out)
+arr.shift()删除第一项，并返回它
+arr.unshift()插入到第一项，返回新数组的长度
 
+2.5 重排序方法
+arr.reverse()反转数组元素出现的顺序
+arr.sort()会调用每项值的toString()方法，所以始终比较的都是字符串
+可以接受一个比较函数作为参数
+arr.sort(function(a,b){return a-b;})第一个应该位于第二个之前，则返回一个负数
 
+2.6 操作方法
+arr.concat()没参数相当于复制，参数包含二维数组也会被展开添加，但是只展开一层哦@。@
+arr.slice()返回的起始和结束为止，含头不含尾
+有一个参数是负数时候，用数组长度加上该数来确定位置
+arr.splice(start,num_to_del[,replace])这个方法会改变原数组
 
+2.7 位置方法
+arr.indexOf(n,pos)查找该项在数组中位置，从pos处开始
+arr.lastIndexOf()从末尾开始找
 
+2.8迭代方法
+传入这些方法的函数会接受三个参数，数组项的值,该项在数组中的位置,和数组对象本身
+- every()每一项运行给定函数，每一项都返回true,则返回true
+- filter()每一项运行给定函数，返回返回true的项组成的数组
+- forEach()每一项运行给定函数，木有返回值
+- map()每一项运行给定函数，返回每次函数调用的结果组成的数组
+- some()每一项运行给定函数，任意一项返回true,则返回true
+arr.every(function(item,index,arr){return item>=10;})
+每项都大于10返回true
+arr.filter(function(item,index,arr){return item>=10;})
+返回大于10的项组成的数组
+arr.some(function(item,index,arr){return item>=10;})
+一些项大于10就返回true
+arr.map(function(item,index,arr){return item>=10;})
+返回每一项调用的结果组成的数组(true,false)组成
+arr.forEach(function(item,index,arr){return item>=10;})
+本身迭代，不返回
 
+2.9 缩小方法
+- reduce()
+- reduceRight()
+这俩方法都会迭代所有项,构建一个最终返回值
+前者从左遍历，后者从右遍历
+arr.reduce(function(prev,cur,idx,arr){
+	return prev*cur;
+});//求数组的积
 
-
-
+3. Data类型
 
 
 
