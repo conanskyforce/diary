@@ -571,6 +571,13 @@ a.prototype指向b的实例,则a的实例继承了b的方法,a的原型指向b�
 Object.create()方法规范了原型式继承
 接受两个参数,作为新对象原型的对象和(可选的)一个为新独享定义额外属性的对象
 
+	Object.create(obj)
+	<===>
+	function cp(obj){
+	function F(){}
+	F.prototype = o;
+	return new F()  
+	}
 
 
 
