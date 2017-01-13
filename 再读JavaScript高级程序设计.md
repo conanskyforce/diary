@@ -560,14 +560,16 @@ function arraypush(){
 }
 arraypush(1,3,5,7);//[1, 3, 5, 7]达到目的
 
+稳妥构造函数--道神(不使用this 与new的情况下)
 
+##继承
+a.prototype指向b的实例,则a的实例继承了b的方法,a的原型指向b的原型
 
+默认原型都是Object的实例,因此默认原型都会包含一个内部指针,指向Object.prototype
 
-
-
-
-
-
+确定原型和实例之间的关系 instanceof .. 是..的实例
+Object.create()方法规范了原型式继承
+接受两个参数,作为新对象原型的对象和(可选的)一个为新独享定义额外属性的对象
 
 
 
