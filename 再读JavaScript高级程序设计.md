@@ -366,49 +366,199 @@ String类型的每个实例都有length属性
 - 字符串的匹配
 - string.match(/xxxx/);//与调用reg.exec(string)返回的数组相同
 - string.search(/xxx/);//返回第一个匹配项的所有，没找到返回-1
-- string.replace(/sda/g,'xfa')将所有匹配到的项，替换为'xfa',第二个参数也可以是个函数
-- 
+- string.replace(/sda/g,'xfa')将所有匹配到的项，替换为'xfa',第二个参数也可以是个函数接受的参数包括,匹配的元素,位置,原始文本
+- string.split()基于制定的分隔符键字符串风分割,然后存放在数组当中,也可以接收第二个参数,用于制定数组的大小,超出长度的不返回
 
+- localeCompare()
+- string.localeCompare(string2)
+- string改排在string2之前则返回-1，否则返回1，相等返回0
 
+- fromCharCode()
+- String.fromCharCode(num1,num2,num3);//接收一伙多个字符编码,然后将它们转换成一个字符串
 
+- HTML方法
+- 不建议使用
 
+##7 单体内置对象
+不依赖于数组环境的对象  
+7.1 Global对象  
+Global对象是兜底对象,  
+isNaN(),isFinite(),parseInt(),alert()等都是global对象的方法  
 
+1. URI编码方法Global  
+- encodeURI()用于对URI某一段进行编码,不对冒号,反斜杠进行编码  
+- encodeURIComponent()对发现的任何非标准字符串进行编码  
+实践中更多的是对查询字符串参数进行URI编码
+与之相对的是decodeURI()只能解用encodeURI()方法编码的字符串,decodeURIComponent()方法可以解一切字符串
 
+2. eval()方法,这个方法就像一个JavaScript解析器
 
+3. Global对象的属性
+- Undefined
+- NaN
+- Infinity
+- Object
+- Array
+- Function
+- Boolean
+- String
+- Number
+- ...
 
+4. window对象
+- web浏览器内部,global对象就是window对象一部分的实现
 
+7.2 Math对象
 
+1. Math对象属性
+- 一些可能用到的特殊值
+2. min()和max()方法,用于确定一组数组中的最大或最小值
+Math.max(1,65,8,7,61,13);//65
+对数组使用
+var arr = [xx,x,x,x,,x]
+var max = Math.max.apply(Math,arr)
+3. 舍入
+- Math.ceil()向上取整
+- Math.floor()向下取整
+- Math.round()四舍五入
+4. random()方法
+- Math.random()获取一个0到1之间的随机数，不包括0和1  
+	选择x到y之间的任意数
+	function selectFrom(x,y){
+	var choices = y-x+1;
+	return Math.floor(Math.random()*choices+x);
+	}
+	selectFrom(2,15);//2到15之间的任意整数,包括2和15
+5. 其他方法
+- Math.abs()绝对值
+- Math.sqrt()平方根
+- ...
 
+##面向对象的程序设计
 
+属性类型
+1. 数据属性
+修改属性默认的特性
+Object.defineProperty()
+接受三个参数,属性所在对象,属性名字,和描述符对象,这个对象的属性必须是
+configurable,
+enumerable,
+writable,
+value,
+设置对应值,修改对应特性
+2. 访问器属性
+configurable
+enumerable
+set写入属性时调用
+get读取属性时调用
+_表示只能通过对象的方法访问的属性
 
+定义多个属性
+Object.defineProperties()
+接收两个对象参数,第一个对象是要添加和修改属性的对象，
+第二个对象的属性与第一个对象中要添加或修改的属性一一对应。
 
+读取属性的特性
+Object.getOwnPropertyDescriptor()取得给定属性的描述符
 
+##创建对象
+1. 工厂模式
+function factory(){
+var o = new Object()
+o.xx=xx;
+return 0;
+}
 
+2. 构造函数模式
+function Myfunc(a,b,c){
+this.a=a;
+this.b=b;
+this.c=c;
+this.func=function(){
+console.log(this.a)
+};
+}
+newfunc = new Myfunc(s,dag,e)
+newfunc 是Myfunc的实例
+注意调用时候用了new 
+不同实例的同名函数实际上是不相等的,因为函数实例化的过程中,都新创建了一个作用域
+原型模式：
+使用原型对象，让所有实例共享它所包含的属性和方法
+`
+只要创建了一个新函数,该函数就有一个prototype属性，指向这个函数的原型对象,原型对象自动获得constructor属性,指向函数本身,当调用构造函数创建一个新实例之后,该实例的内部都将包含一个指针,指向构造函数的原型对象,这个指针一般 __proto__。
+`
+可以通过isPrototypeOf()...是...的原型对象
+Object.getPrototypeOf(xx)返回xx的原型对象
+对象属性,实例属性优先级屏蔽原型属性
+obj.hasOwnProperty('na');//na属性是否只在obj中,不在原型中
+'na' in obj;//'na'属性在obj中
+function propertyInPrototype(obj,name){
+    return !object.hasOwnProperty(name) &&(name in obj);
+}
+使用for-in循环的时候,返回的是所有能够通过对象反问的,可枚举的属性
+Object.key()返回对象可枚举属性的字符串数组
 
+对象字面量重写原型
 
+	Person.prototype = {
+		constructor:Person,
+	    name:"xxx",
+	    age:22,
+	    func:function(){
+		return this.name+this.age;
+		}
+	};
 
+	==>因为上述constructor属性变为可遍历了，所以还需要修改如下
+	Person.prototype = {
+	    name:"xxx",
+	    age:22,
+	    func:function(){
+		return this.name+this.age;
+		}
+	};
+	Object.defineProperty(Person.prototype,'constructor',{
+	enumerable:false,
+	value:Person
+	});
+注意以上包含的constructor属性
+记住，实例中的指针(__proto__)指向原型对象(也就是构造函数的prototype属性),而不是构造函数
 
+来看一个例子
+function Person(){
+};
+var allen = new Person();
+Person.prototype = {
+	constructor:Person,
+	name:"allen",
+	age:28,
+	dosth:function(){
+	console.log("Hello Mr "+this.name) 
+	}
+};
+allen.__proto__=Person.prototype;//思考为什么要加上这一行
+allen.dosth();
+//已经创建了实例的情况下重写原型,就会切断现有实例与新原型之间的联系
+原生引用类型都在其构造函数的原型上定义了这些方法
+一般都不会直接修改原生对象的原型,而是按需添加方法
 
+结合使用构造函数模式和原型模式
+构造函数定义实例属性，原型模式用于共享方法和共享属性
 
+再来看一个例子
+function arraypush(){
+	var earr=[];
+	earr.push(arguments)
+	return earr;
+}
+arraypush(1,3,5,7);//[Arguments[4]]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function arraypush(){
+	var earr=[];
+	earr.push.apply(earr,arguments)
+	return earr;
+}
+arraypush(1,3,5,7);//[1, 3, 5, 7]达到目的
 
 
 
