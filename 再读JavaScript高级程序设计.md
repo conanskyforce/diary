@@ -591,8 +591,12 @@ var myFunc = function(){}不会变量提升
 7.1 函数递归是一个函数通过名字调用自身  
 
 	var factorial = (function f(num){
-		if (num<=1){return 1;}
-		else{return num*f(num-1);}
+		if (num<=1){
+			return 1;
+		}
+		else{
+			return num*f(num-1);
+		}
 	});
 
 7.2 闭包--有权访问另一个函数作用域中的变量的函数
@@ -654,26 +658,95 @@ myObject.getNameFunc()();//调用这个函数的函数
 
 	"this object"
 
+7.3 没有块级作用域
 
+只有函数块,函数作用域
 
+匿名函数模仿块级作用域  
+	(function(){
+		//这里是块级作用域
+	})();
 
+7.4 私有变量
 
+私有变量包括函数的参数、局部变量和在函数内部定义的其它函数
+如果函数内部创建一个闭包，那么闭包通过自己的作用域链也可以访问这些变量，而利用这一点，就可以创建用于访问私有变量的公有方法
+，我们把这种方法成为特权方法
 
+	function MyObject(){
+		var private = 10;
+		function privateFunc(){
+			return false;
+		}
+		this.publicMethod = function(){
+			private++;
+			return privateFunc();
+		};
+	}
+构造函数的缺点就是针对每个实例都会创建一组新方法
 
+7.4.1 静态私有变量
 
+	(function(){
+	
+		var private = 10;
+		
+		function privateFunc(){
+			return false;
+		}
+		
+		MyObject = function(){
+		};
+		Myobject.prototype.publicMethod = function(){
+			private++;
+			return privateFunc();
+		};
+	})();
 
+私有变量和函数是由实例所共享的
 
+7.4.2 模块模式
+单例模式,值得是只有一个实例的对象.
+	
+	var singleton = {
+		name:value,
+		method:function(){
+			//
+		}
+	};
 
+	var singleton = function(){
+		var private = 10;
+		function privateFunc(){
+			return false;
+		}
+		return {
+			publicProperty:true,
+			publicMethod:function(){
+				private++;
+				return privateFunc();
+			}
+		};
+	}();
 
+返回对象的匿名函数
 
+7.4.3 增强模块模式
 
+	var singleton = function(){
+		var private = 10;
+		function privateFunc(){
+			return false;
+		}
+		var object =new CustomType();
 
-
-
-
-
-
-
+		object.publicProperty:true;
+		object.publicMethod:function(){
+				private++;
+				return privateFunc();
+			};
+		return object;
+	}();
 
 
 
