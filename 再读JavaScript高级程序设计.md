@@ -579,27 +579,80 @@ Object.create()方法规范了原型式继承
 	return new F()  
 	}
 
+#7.函数表达式
 
+函数非标准的那么属性,指向函数指定的名字
+函数申明:(函数声明提升)
+function myFunc(){}
 
+函数表达式(创建一个匿名函数,并将其赋值给myFunc,匿名函数的name属性是空字符串)
+var myFunc = function(){}不会变量提升
 
+7.1 函数递归是一个函数通过名字调用自身  
 
+	var factorial = (function f(num){
+		if (num<=1){return 1;}
+		else{return num*f(num-1);}
+	});
 
+7.2 闭包--有权访问另一个函数作用域中的变量的函数
+懈怠包含它函数的作用域  
 
+7.2.1 闭包所保存的是整个变量对象,而不是某个特殊值(只能取得包含函数中任何变量的最后一个值)
 
+	function arrFunc(){
+		var arr=[];
+		for(var a=0;a<10;a++){
+			arr[a] = function(){
+			return i;
+			}
+		}
+	}
 
+世纪的结果是arr的每一项都是10
+改善：(通过定义一个匿名函数,并将立即执行该匿名函数的结果赋值给数组)
 
+	function arrFunc(){
+		var arr=[];
+		for(var a=0;a<10;a++){
+			arr[a] = function(){
+			return function(){
+				return num;
+				};
+			}(i);
+		}
+		return arr;
+	}
 
+7.2.2 关于this对象
+匿名函数的执行环境具有全局性,因此其this对象通常指向window
 
+	var myObject = {
+		name:"this object",
+		getNameFunc:function(){
+			var that = this;
+			return function(){
+				return that.name;
+			};
+		}
+	};
 
+myObject.getNameFunc;//指的是一个函数
+	function(){
+			var that = this;
+			return function(){
+				return that.name;
+			};
+		}
+myObject.getNameFunc();//调用这个函数
 
+	function(){
+		return that.name;
+	};
 
+myObject.getNameFunc()();//调用这个函数的函数
 
-
-
-
-
-
-
+	"this object"
 
 
 
