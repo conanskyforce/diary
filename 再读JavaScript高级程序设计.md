@@ -748,28 +748,53 @@ myObject.getNameFunc()();//调用这个函数的函数
 		return object;
 	}();
 
+#8. BOM(浏览器对象模型)
 
+8.1 window对象,表示浏览器的一个实例,既是JavaScript访问浏览器窗口的一个借口M又是ECMAScript规定的Global对象
 
+8.1.1 全局作用域
+所有在全局作用域中申明的变量,函数都会变成window对象的属性和方法,大全局变量不能通过delete操作符删除,而直接在window对象上定义的属性则可以.
 
+###窗口位置
+获得浏览器窗口相对于屏幕左边和上边的位置
 
+var leftPos = (typeof window.screenLeft == "number")? window.screenLeft : window.screenX;
 
+var topPos = (typeof window.screenTop == "number")? window.screenTop : window.screenY;
 
+console.log("top: "+topPos+"\n"+"left: "+leftPos)
 
+###移动窗口(chrome被禁用?)
+window.moveTo(0,0)
 
+###窗口大小
+window.innerWidth(页面视图区域)
+window.innerHeight
+window.outerWidth(整个浏览器)
+window.outerHeight
 
+console.log("innerWidth: "+window.innerWidth+"\n"+"innerHeight: "+window.innerHeight)
 
+console.log("outerWidth: "+window.outerWidth+"\n"+"outerHeight: "+window.outerHeight)
 
+document.documentElement.clientWidth(页面视口),相较于innerWidth,不包括滚动条的宽度,chrome里边是13px
+document.documentElement.clientHeight
+等价于
+document.body.clientWidth
+document.body.clientHeight
 
+console.log("clientWidth: "+document.documentElement.clientWidth+"\n"+"clientHeight: "+document.documentElement.clientHeight)
 
+8.1.5 导航和打开窗口
 
+setTimeout(function,delay)
 
+for(var a=0;a<9999;a++){clearTimeout(a)}
 
+setInterval亦然
+开发一般使用超时调用
 
-
-
-
-
-
+8.1.7 系统对话框
 
 
 
