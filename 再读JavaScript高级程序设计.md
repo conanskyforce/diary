@@ -796,47 +796,117 @@ setInterval亦然
 
 8.1.7 系统对话框
 
+alert('alert')
+confirm("are you sure?")
+var promptContent = prompt("what's you name?");//单机确定prompt获取输入值，单机取消prompt为null
 
+8.2 location对象
+window.location ===document.location;//true
+查询字符串参数
+解析查询字符串，然后返回包含所有参数的一个对象  
+	function getQuery(){
+		var qs = (location.search.length>0?location.search.substring(1):""),
+		args={},
+		items =qs.length?qs.split("&"):[],
+		item = null,
+		name=null,
+		value=null,
+		i = 0,
+		len = items.length;
+		for(i=0;i<len;i++){
+			item = items[i].split("=");
+			name = decodeURIComponent(item[0]);
+			value = decodeURIComponent(item[1]);
+			if(name.length){
+				args[name] = value;
+			}
+		}
+		return args;
+	}
 
+8.3 navigator对象
 
+8.3.1 检测插件
+navigator.plugins有以下属性
+name
+description
+filename
+length
 
+8.4 screen对象
 
+#9.0 客户端检测
 
+9.1 能力检测
+先检测最常用的特性以保证代码最优化
+9.2 怪癖(浏览器特殊行为检测)
+9.3 用户代理检测
 
+#10 DOM
 
+Node类型
+每个节点都有一个nodeType属性，表明节点的类型
+元素节点--1
+属性节点--2
+文本节点--3
+文档节点--9
 
+.nodeName属性--元素的标签名
+.nodeVlaue属性--元素节点的值
 
+每一个节点都有一个childNodes属性,保存着一个NodeList对象,NodeList是一种类数组对象,可以通过方括号来访问，并且也有length属性，但它并不是Array的实例,另外值得注意的一点是这是基于DOM结构动态执行查询的结果
 
+someNode.childNodes[0]
+someNode的第一个子元素
+someNode.childNodes.item(1)
+someNode的第二个子元素
 
+将NodeList对象转换为数组
+var someNode = document;
+someNode.childNodes;
+var arrayOfNodes = Array.prototype.slice.call(someNode.childNodes,0);
+someNode.childNodes;
 
+每个节点都有一个parentNode属性,之下那个文档中的父节点
+包含在childNodes列表中的每个节点相互之间都是同胞节点,可以使用
+previousSibling属性和
+nextSibling属性访问
+第一个节点的previousSibling属性为null
+最后一个节点nextSibling属性为null
+父节点的firstChild指向第一个节点
+父节点的lastChild指向最后一个节点
+即
+someNode.firstChild===someNode.ChildNodes[0]
+someNode.lastChild===someNode.ChildNodes[someNode.ChildNodes.length-1]
 
+someNode.hasChildNodes();//有一个或以上子节点则返回true
+所有节点都具有的最后一个属性是ownerDocument,指向整个文档的文档节点
 
+3. 操作节点
 
+插入一个节点到末尾：
+parentNode.appendChild(newNode);//向父节点的childNodes列表末尾添加一个节点
+插入一个节点到某处：
+parentNode.insertBefore(newNode,someNode);//向某个节点之前插入新节点
+替换节点：
+parentNode.replaceChild(newNode,someNode);//替换某处的节点为新节点
+移除节点：
+parentNode.removeChild(someNode);//移除某个节点
 
+someNode.cloneNode();//true为深复制,false为浅复制
 
+10.1.2 Document 类型
+浏览器中document对象表示整个HTML页面
+nodeType值为9
+nodeName值为"#document"
+nodeValue值为null
+parentNode值为null
+ownerDocument值为null
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1. 文档子节点
+documentElement属性,指向HTML页面中的<html>元素
+即
+document.documentElement===document.childNodes[0]
 
 
 
