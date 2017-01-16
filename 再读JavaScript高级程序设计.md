@@ -905,57 +905,157 @@ ownerDocument值为null
 
 1. 文档子节点
 documentElement属性,指向HTML页面中的<html>元素
-即
-document.documentElement===document.childNodes[0]
+即：
+document.documentElement===document.childNodes[1];//true
+body属性,指向body元素
 
+所有浏览器都支持这两个属性
 
+2. 文档信息
 
+title属性,浏览器窗口的标题栏或标签页上的名称
+URL属性,包含页面完整的URL
+domain属性,只包含页面的域名
+referrer属性,链接到当前页面的那个URL
 
+3. 查找元素
 
+document类型的两个方法
+.getElementById();//返回的是单个元素
+.getElementsByTagName();//返回的是与NodeList类似的动态集合
 
+HTMLDocument类型才有的方法
+.getElementsByName()
 
+4. 特殊集合
 
+document.forms等价于document.getElementsByTagName('form')
+document.images等价于document.getElementsByTagName('img')
+document.links等价于document.getElementsByTagName('a')
 
+5. DOM一致性检测
 
+document.implementation属性就是为此提供相应信息和功能的对象
+DOM1级,规定一个方法
 
+document.implementation.hasFeature()
 
+6. 文档写入
 
+write();//文档写入
+writeln();//文档写入,末尾添加换行符 \n
+open();//
+close();//
 
+10.1.3 Element 类型
+nodeType值为1
+nodeName值为元素标签名
+nodeValue值为null
+parentNode可能是document或Element
 
+tagName和nodeName都返回标签名
 
+HTML元素存在的标准特性
+id--
+title--
+lang--
+dir--
+className--对应class
 
+2. 取得特性(一般常见的特性,都能通过DOM元素本身的属性来访问)
 
+.getAttribute();//可以返回自定义特性,返回的是字符串
 
+所以开发中一般使用的都是对象的属性,只有在取得自定义特性值的情况下,才会使用getAttribute()方法
 
+3. 设置特性
 
+div.setAttribute('title','xxx')
+亦可以直接给属性赋值来设置属性(不能添加自定义属性)
+上述等价于
+div.title ='xxx'
+删除特性
+div.removeAttribute('someAttr')
 
+4. attributes属性
+是一个属性的动态集合,然而太麻烦,不如上边的方法
 
+5. 创建元素
 
+document.createElement('tagName')方法创建新元素
 
+var newDoc = document.createElement('div');
+newDoc.innerText = "hello mimasang";
+newDoc.style="width:100%;height:50px;background-color:#f5f5f5;background-image:url(http://tp3.sinaimg.cn/2488256110/50/22837397701/1);";
+document.body.appendChild(newDoc);
 
+6. 元素的子节点
+注意包含空格文本节点
+元素节点也有
+.getElementsByTagName()
 
+10.1.4 Text 类型
 
+nodeType值为3
+nodeName值为#text
+nodeValue值为包含文本
+parentNode是Element
+没有子节点
+可以通过nodeValue或data属性访问Text节点包含的文本
 
+1. 创建文本节点
+document.createTextNode()
 
+string='xxx'
+var myText = document.createTextNode(string);
+var myDiv = document.createElement('div');
+myDiv.appendChild(myText);
+document.body.appendChild(myDiv);
 
+父元素调用normalize()方法会合并两个或以上子文本元素
 
+10.1.4 Comment类型
 
+nodeType值为8
+nodeName值为#comment
+nodeValue值为注释内容
+parentNode可能是Element或Document
+没有子节点
 
+10.1.6 CDATASection类型
 
+nodeType值为4
+nodeName值为#cdata-section
+nodeValue值为CDATA区域中的内容
+parentNode可能是Element或Document
+没有子节点
 
+10.2 DOM操作
 
+动态加载外部脚本
 
+	function loadScript(url){
+		var script = document.createElement('script');
+		script.type="text/javascript";
+		script.src=url;
+		script.text = 'function myFunc(){...}'
+		document.body.appendChild(script);
+	}
+	loadScript('xxx.js');
 
+动态加载外部样式
+	
+	functionloadStyles(url){
+		var link = document.createElement('link');
+		link.rel="stylesheet";
+		link.type="text/css";
+		link.href=url;
+		var head = document.getElementByTagName('head')[0];
+		head.appendChild(link);
+	}
+	loadStyles('xxx.css');
 
-
-
-
-
-
-
-
-
-
+#11 DOM扩展
 
 
 
