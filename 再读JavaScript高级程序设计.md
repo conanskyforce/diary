@@ -1057,25 +1057,109 @@ parentNode可能是Element或Document
 
 #11 DOM扩展
 
+***
+我觉得这道题特别具有说服力,也解决了我长久以来困扰的call,与apply的用法问题
 
+	function every(collection, pre) {
+	  // Is everyone being true?
+	  return Array.prototype.every.call(collection,function(ele){
+	    return !!ele[pre];
+	  });
+	}
+	every函数判断collection数组里是不是每个值都有pre为属性的对象,是返回true,不是返回false.
 
+***
+#13 事件
 
+事件就是用户或浏览器执行某种动作，例如click，load，mouseover之类，响应某个事件的函数就叫事件处理程序(事件侦听器)，事件处理程序的名字以‘on’开头。
+<button onclick="func()"></button>
+这种方式缺点：
+1.耦合过于紧密
+2.时差问题,点击时候可能事件处理程序不具备执行条件
+3.作用域链在不同浏览器中会导致不同结果
 
+DOM0级制定时间处理程序被认为是元素的方法
+btn.onclick=function(){...};
+btn.onclick=null;删除时间处理程序
 
+DOM2级事件处理程序
+btn.addEventListener('click',myfunc,false);
+,可以添加多个事件处理程序
+btn.removeEventListener('click',myfunc,false);
+没法移除匿名函数
 
+IE事件处理程序
+btn.attachEvent('onclick',myfunc);
+btn.detachEvent('onclick',myfunc);
 
+跨浏览器事件处理程序
 
+	var EventUitl = {
+		addHandler:function(element,type,handler){
+			if(element.addEventListener){
+				element.addEventListener(type,handler,false);
+			}else if(element.attachEvent){
+				element.attachEvent('on'+type,handler);
+			}
+			else{
+				element['on'+type] = handler;
+			}
+		},
+		getEvent:function(event){
+			return event?event:window.event;
+		},
+		getTarget:function(event){
+			return event.target||event.srcElement;
+		},
+		preventDefault:function(event){
+			if(event.preventDefault){
+				event.preventDefault();
+			}else{
+				event.returnVlaue = false;
+			}
+		},
+		removeHandler:function(element,type,handler){
+			if(element.removeEventListener){
+				element.removeEventListener(type,handler,false);
+			}else if(element.detachEvent){
+				element.detachEvent('on'+type,handler);
+			}else{
+				element['on'+type] = null;
+			}
+		},
+		stopPropagation:function(event){
+			if(event.stopPropagation){
+				event.stopPropagation();
+			}else{
+				event.cancelBubble = true;
+			}
+		}
+	};
 
+EventUtil.addHandler(btn,'click',handler);
 
+EventUtil.removeHandler(btn,'click',handler);
 
+事件对象
 
+event对象的属性
+preventDefault()阻止默认行为cancelable设置为true时,才能取消默认行为
+stopPropagation()阻止冒泡
+currentTarget正在处理事件的那个元素和this都是指向绑定事件处理器的元素
+target事件目标
 
+通过一个函数处理多个事件,利用type属性
 
+IE中的事件对象,DOM0级添加事件处理程序时候,event作为window对象的一个属性存在
+attachEvent添加的话,就会有一个event对象作为参数被传入时间内处理程序函数中。
 
+事件属性
+cancelBubble 默认为false,设置为true就能取消冒泡
+returnValue 默认为true,设置为false取消世家默认行为
+srcElement 事件的目标
+type 被触发事件类型
 
-
-
-
+跨浏览器事件对象
 
 
 
