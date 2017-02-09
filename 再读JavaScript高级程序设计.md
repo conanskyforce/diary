@@ -1133,6 +1133,37 @@ btn.detachEvent('onclick',myfunc);
 			}else{
 				event.cancelBubble = true;
 			}
+		},
+		getRelatedTarget:function(event){
+			if(event.relatedTarget){
+				return event.relatedTarget;
+			}else if(event.toElement){
+				return event.toElement;
+			}else if(event.fromElement){
+				return event.fromElement;
+			}else{
+				return null;
+			}
+		},
+		getButton:function(event){
+			if(document.implementation.hasFeature("MouseEvents","2.0")){
+				return event.button;
+			}else{
+				switch(event.button){
+					case 0:
+					case 1:
+					case 2:
+					case 3:
+					case 5:
+					case 7:
+						return 0;
+					case 2:
+					case 6:
+						return 2;
+					case 4:
+						return 1;
+				}
+			}
 		}
 	};
 
@@ -1176,16 +1207,101 @@ UI事件,交互事件
 
 unload事件一般用于清除引用以避免内存泄漏
 
+UI事件
+1.load事件
+加载完成后触发,图像上也可以触发load事件
 
+2.unload事件
+卸载后触发
 
+3.resize事件
+浏览器被调整高度或宽度时触发
 
+4.scroll滚动事件
 
+##焦点事件
+主要是blur和focus,但他俩不会冒泡
+focusin和focusout冒泡
 
+##鼠标与滚轮事件
 
+鼠标事件:
+click
+mousedown
+mouseenter
+mouseleave
+mousemove
+mouseout
+mouseover
+mouseup
+只有mouseenter和mouseleave不会冒泡
 
+滚轮事件:
+mousewheel
 
+视口中的位置
+clientX
+clientY
+页面中的位置
+pageX
+pageY
+页面没有滚动时候,这两者相等
 
+pageX = document.body.scrollLeft+event.clientX
+pageY = document.body.scrollLeft+event.clientY
 
+屏幕坐标位置
+screenX
+screenY
+
+移入和移出的相关事件
+relatedTarget
+
+	var EventUtil = {
+		/..
+		getRelatedTarget:function(event){
+			if(event.relatedTarget){
+				return event.relatedTarget;
+			}else if(event.toElement){
+				return event.toElement;
+			}else if(event.fromElement){
+				return event.fromElement;
+			}else{
+				return null;
+			}
+		}
+		//..
+	};
+
+鼠标事件
+对于mousedown和mouseup事件来说，其event对象存在一个button属性,表示释放或按下。
+0表示左键
+1中建
+2右键
+	var EventUtil = {
+		/..
+		getButton:function(event){
+			if(document.implementation.hasFeature("MouseEvents","2.0")){
+				return event.button;
+			}else{
+				switch(event.button){
+					case 0:
+					case 1:
+					case 2:
+					case 3:
+					case 5:
+					case 7:
+						return 0;
+					case 2:
+					case 6:
+						return 2;
+					case 4:
+						return 1;
+				}
+			}
+		}
+		//..
+	};
 
 
 
