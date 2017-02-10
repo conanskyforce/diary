@@ -85,15 +85,63 @@
 		};
 	});
 
+	var bar =MyModules.get("bar");
+	var foo =MyModules.get("foo");
+	
+	console.log(bar.hello("hippo"));//Let me introduce: hippo
+	foo.awesome(); // LET ME INTRODUCE: HIPPO
 
+## ES6模块加载机制
+	
+	// bar.js
+		function hello(who) {
+				return "Let me introduce: " + who;
+			}
+		export hello;
+***
+	// foo.js
+	// 仅从 "bar" 模块导入 hello()
+		import hello from "bar";
+		var hungry = "hippo";
+		function awesome() {
+			console.log(
+				hello( hungry ).toUpperCase()
+			);
+		}
+		export awesome;
+***
+	// baz.js
+		// 导入完整的 "foo" 和 "bar" 模块
+		module foo from "foo";
+		module bar from "bar";
+		console.log(
+			bar.hello( "rhino" )
+		); // Let me introduce: rhino
+		foo.awesome(); // LET ME INTRODUCE: HIPPO
 
+import将一个模块中的一个或多个API导入当前作用域,module会将整个模块API导入
+***
+##附录A 词法作用域和动态作用域
+大部分语言都是基于词法作用域,JavaScript亦如此(词法作用域是一套关于引擎如何寻找变量以及会在何处找到变量的规则)
+和动态作用域的区别
+动态作用域的作用域链式基于调用栈的，而不是代码中的作用域嵌套
+词法作用域是在写代码或者说定义时确定的，而动态作用域是在运行时确定的。(this也是！)词法作用域关注函数在何处申明，动态作用域关注函数从何处调用。
 
+	function foo() {
+		console.log( a ); // 2
+	}
+	function bar() {
+		var a = 3;
+		foo();
+	}
+	var a = 2;	
+	bar();
 
+ES6添加了一个特殊的词法形式用于函数申明，叫做箭头函数，用当前的词法作用域覆盖了this本来的值。
 
+this是在运行的时候绑定的,取决于函数的调用方式,
 
-
-
-
+#this全面解析
 
 
 
