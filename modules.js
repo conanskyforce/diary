@@ -32,7 +32,7 @@ var MyModules = (function Manager(){
 		modules[name] = impl.apply(impl,deps);
 	}
 	function get(name){
-		return modeuls[name];
+		return modules[name];
 	}
 	return {
 		define:define,
@@ -61,16 +61,50 @@ MyModules.define("foo",["bar"],function(bar){
 });
 
 var bar =MyModules.get("bar");
-var bar =MyModules.get("foo");
+var foo =MyModules.get("foo");
 
 console.log(bar.hello("hippo"));//Let me introduce: hippo
 foo.awesome(); // LET ME INTRODUCE: HIPPO
 
+// ES6模块加载机制
 
+// bar.js
+	function hello(who) {
+			return "Let me introduce: " + who;
+		}
+	export hello;
 
+// foo.js
+// 仅从 "bar" 模块导入 hello()
+	import hello from "bar";
+	var hungry = "hippo";
+	function awesome() {
+		console.log(
+			hello( hungry ).toUpperCase()
+		);
+	}
+	export awesome;
 
+// baz.js
+	// 导入完整的 "foo" 和 "bar" 模块
+	module foo from "foo";
+	module bar from "bar";
+	console.log(
+		bar.hello( "rhino" )
+	); // Let me introduce: rhino
+	foo.awesome(); // LET ME INTRODUCE: HIPPO
 
+// 词法作用域和
 
+function foo() {
+	console.log( a ); // 2
+}
+function bar() {
+	var a = 3;
+	foo();
+}
+var a = 2;	
+bar();
 
 
 
