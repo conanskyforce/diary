@@ -144,7 +144,48 @@ this是在运行的时候绑定的,取决于函数的调用方式,
 #this全面解析
 strict 模式this不能绑定到全局变量上,为undefined
 
+回调函数丢失this绑定是非常之常见的
 
+硬绑定
+bind(..)会返回一个硬编码的新函数,它会吧参数设置为this的上下文并调用原始函数
+
+判断this
+1.函数是否在new中调用(new 绑定) ,this绑定的是新创建的对象
+var bar = new foo()
+
+2.this是否荣光call,apply(显式绑定),this绑定的是制定的对象
+var bar = obj1.foo()
+
+3.函数是否在某个上下文对象中调用(隐式绑定),thiss绑定的是哪个上下文对象
+var bar = obj1.foo()
+
+4.如果都不是,使用默认绑定,严格模式绑定到undefined,否则绑定到全局对象
+
+例外：
+传入null到如下，实际上是默认绑定
+apply,call,bind可以对参数进行科里化
+
+//把数组展开
+
+	foo.apply(null,[2,3])
+
+更加安全的this——DMZ
+
+	function foo(a,b){
+	    console.log("a: "+a+",b: "+b)
+	}
+	var O = Object.create(null);//O表示‘我希望this是空’
+	
+	foo.apply(O,[2,3]);//a:2,b:3
+	
+	var bar = foo.bind(O,2);
+	bar(3);// a:2,b:3
+
+间接引用，最容易发生在赋值时候,会引用默认绑定 
+
+ES6中的箭头函数根据的是词法作用域来决定this(ES6之前用that = this)
+
+对象中，属性名永远都是字符串
 
 
 
