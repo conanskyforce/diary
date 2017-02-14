@@ -200,4 +200,34 @@ Bar.prototype = Object.create(Foo.prototype);
 //ES6的方法
 Object.setPrototypeOf(Bar.prototype,Foo.prototype);
 
+Object.create()会创建一个新对象，并将它关联到我们制定的对象,这样我们就可以充分发挥Prototype的微粒，而且避免不必要的麻烦(比如使用new的构造函数调用会生成.prototype和.constructor引用)
+
+Object.create(null)会创建一个拥有空[[prototype]]链接的对象，这个对象法务进行委托,由于这个对象没有原型链,所以instanceof操作符无法进行判断，总是返回false,这类特殊的空[[prototype]]对象通常被称作字典，他们完全不会受到原型链的干扰，非常适合用来储存数据。
+
+Object.create()的polyfill代码
+//ES5之前的环境
+
+	if(!Object.create){
+		Object.create = function(o){
+			function F(){};
+			F.prototype = o;
+			return new F();
+		}
+	}
+
+
+You Dont Know JS中篇
+
+JavaScript内置类型一共七种
+null
+undefined
+boolean
+string
+number
+object
+symbol
+除对象外，其他对象被称为基本类型
+可以用typeof进行判断，
+但是null判断例外typeof null为object
+typeof function(){}为function(object子类型)
 
