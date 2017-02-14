@@ -187,5 +187,17 @@ ES6中的箭头函数根据的是词法作用域来决定this(ES6之前用that =
 
 对象中，属性名永远都是字符串
 
+所有普通的Prototype链最终都会指向内置的Object.prototype
+
+构造函数有一个prototype属性,这个属性是通过构造函数生成对象的原型对象,这个原型对象还有个constructor属性,指向构造函数本身.
+通过构造函数生成的对象也能通过原型委托查找到constructor这个属性.当你替换了构造函数.prototype(重写原型),constructor属性并不会自动获得哦.
+
+用new调用了才叫构造函数.
+
+把Bar.prototype关联到Foo.prototype的方法
+//ES6之前
+Bar.prototype = Object.create(Foo.prototype);
+//ES6的方法
+Object.setPrototypeOf(Bar.prototype,Foo.prototype);
 
 
