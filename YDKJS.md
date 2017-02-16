@@ -291,47 +291,138 @@ false
 
 假值以外的值都是真值
 
+字符串和数字之间的转换是通过String()和Number()这两个内建函数来实现的                                
 
+将日期对象转换为时间戳
 
+	new Date().getTime()
+	Date.now()
 
+旧浏览器polyfill
 
+	if(!Date.now){
+		Date.now = function(){
+			return +new Date()
+		};
+	}
 
+~myString.indexOf(..)
+如果找不到，返回-1,~后为0，其他情况~后都不为0
 
+解析和转换
+	var a = "42";
+	var b = "42px";
+	Number( a ); // 42
+	parseInt( a ); // 42
+	Number( b ); // NaN
+	parseInt( b ); // 42
 
+parseInt()针对的是字符串值
 
+从 ES5 开始 parseInt(..) 默认转换为十进制数，除非另外指定。如果你的代码需要在 ES5之前的环境运行，请记得将第二个参数设置为 10 。
 
+显示强制类型转换为布尔值最常用的还是!!
 
+	var a = "0";
+	var b = [];
+	var c = {};
+	var d = "";
+	var e = 0;
+	var f = null;
+	var g;
+	!!a; // true
+	!!b; // true
+	!!c; // true
+	!!d; // false
+	!!e; // false
+	!!f; // false
+	!!g; // false
 
++ 作为数字加法操作是可互换的，即 2 + 3 等同于 3 + 2 。作为字符串拼接操
+作则不行，但对空字符串 "" 来说， a + "" 和 "" + a 结果一样。
 
+	function onlyOne() {
+		var sum = 0;
+		for (var i=0; i < arguments.length; i++) {
+			// 跳过假值，和处理0一样，但是避免了NaN
+			if (arguments[i]) {
+			sum += arguments[i];
+			}
+		}
+		return sum == 1;
+	}
+	var a = true;
+	var b = false;
+	onlyOne( b, a ); // true
+	onlyOne( b, a, b, b, b ); // true
+	onlyOne( b, b ); // false
+	onlyOne( b, a, b, b, b, a ); // false
 
+	ES5中等价方法
+	function onlyOne() {
+		var sum = 0;
+		arg = Array.prototype.slice.call(arguments);
+		return arg.reduce(function(x,y){
+			return sum+x+y
+		})===1;
+	}
+	var a = true;
+	var b = false;
 
+以下情况发生布尔值隐式强制类型转换
+1. if()判断语句
+2. for()条件判断表达式
+3. while()和do...while()条件判断表达式
+4. ?:三元运算符条件判断表达式
+5. ||逻辑或和&&逻辑与左边的操作数
 
+||和&&首先对第一个操作数执行条件判断，如果不是布尔值就进行布尔类强制类型转换，然后再执行条件判断，
 
+||如果判断结果为true就返回第一个，第一个不为true就返回第二个
+&&如果判断结果为true就返回第二个，第一个不为true就返回第一个
+最后还会发生隐式强制类型转换
+	a || b;
+	// 大致相当于(roughly equivalent to):
+	a ? a : b;
+	a && b;
+	// 大致相当于(roughly equivalent to):
+	a ? b : a;
 
+常见的||用法(赋予默认值)
 
+	a = a ||'sth1';
+	b = b ||'sth2';
 
+	function foo() {
+		console.log( a );
+	}
+	var a = 42;
+	a && foo(); // 42
 
+	== 允许在相等比较中进行强制类型转换，而 === 不允许。
 
+==比较中，会将两边转换为数字然后比较
+	
+	"0" == false; // true 
+	false == 0; // true 
+	false == ""; // true 
+	false == []; // true 
+	"" == 0; // true 
+	"" == []; // true
+	0 == []; // true 
 
+如果两边的值中有 true 或者 false ，千万不要使用 == 。
+如果两边的值中有 [] 、 "" 或者 0 ，尽量不要使用 == 。
+这时最好用 === 来避免不经意的强制类型转换。这两个原则可以让我们避开几乎所有强制
+类型转换的坑。
 
+[] + {}; // "[object Object]"
+{} + []; // 0
 
+第一行代码中，{}被当做一个空对象来处理，[]被转换为""，{}被转换为"[object Object]"
+第二行代码中，{}被当做一个独立的代码块，但不执行任何操作，最后将[]显示强制类型转换为0
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	&& 运算符的优先级高于 || ，而 || 的优先级又高于 ? : 。
 
 
 
