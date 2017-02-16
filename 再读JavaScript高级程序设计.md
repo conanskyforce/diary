@@ -1303,12 +1303,32 @@ relatedTarget
 		//..
 	};
 
+鼠标滚轮事件
 
+跨浏览器解决方案
 
+	getWheelDelta:function(){
+		if(event.wheelDelta){
+			return (client.engine.opera&&client.engine.opera<9.5?
+				-event.wheelDelta:event.wheelDelta);
+		}else{
+			return -event.detail * 40;
+		}
+	}
 
+键盘事件
+keydown
+keypress
+keyup
 
+获得字符编码
 
+beforeunload事件，卸载之前弹出对话框问用户是否真的想卸载本页面。
 
+DOMContentLoaded事件在形成完整的DOM树之后就会触发。
+EventUtil.addhandler(document,"DOMContentLoaded",function(event){alert("Content loaded")});
+
+readystatechange事件
 
 
 
