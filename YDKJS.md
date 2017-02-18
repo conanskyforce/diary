@@ -470,6 +470,12 @@ undefined
 Object(Object,null,array,...)
 function
 
+有意思的
+var toString = Object.prototype.toString;
+function getType(obj){return toString.call(o).slice(8,-1);};
+但是new Number(1)却会返回Number
+
+
 匿名函数的执行
 	!function(){}()
 
@@ -477,6 +483,67 @@ function
 
 	(function(){}())
 
+Object.defineProperty(obj,someProperty,{....});//默认所有的标签都是false.
+
+获取对象的属性标签
+Object.getOwnPropertyDescriptor({a:''},'a');//obj为要查看的对象,key为要查看的对象属性的key值.
+Object {value: "", writable: true, enumerable: true, configurable: true}
+
+Object.keys(obj);//获取obj对象上所有的key
+
+修改属性的值可以通过赋值修改也可以通过defineProperty修改属性的value
+
+a={a:11};//Object {a:10}
+b = Object.create(a);
+Object.isFrozen(a);//false
+Object.isFrozen(b);//false
+pofb = Object.getPrototypeOf(b);//Object {a:11}
+pofa = Object.getPrototypeOf(pofb);//Object {}
+
+Object.isFrozen(a);//false
+Object.isFrozen(pofb);//false
+Object.isFrozen(pofa);//true
+
+Object.freeze(b);
+Object.freeze(Object.getPrototypeOf(b));
+
+Object.isFrozen(a);//true
+Object.isFrozen(b);//true
+
+序列化
+JSON.stringify(obj);//将对象序列化为JSON字符串
+注意，
+1. 对象如果有值为undefined,则不会出现在序列化后的结果中
+2. NaN,Infinity 转换为null,时间转换为UTC时间格式. 
+
+JSON.parse(string);//将JSON字符串解析为obj对象
+
+自定义toString()方法,valueOf()方法
+
+in操作符对数组来说访问的是索引!!
+
+对象转换先看valueOf()方法,再看toString()方法
+
+遍历二维数组
+	var arr=[[1,5,5],[null],[461,,0]]
+	for(var i=0;i<arr.length;i++){
+		for(var j=0;j<arr[i].length;j++){
+			console.log(arr[i][j]);
+		}
+	}
+
+稀疏数组并不好友从0开始的连续索引
+
+重复某个字符串制定次数
+	function repeatString(str,n){
+		return new Array(n+1).join(str);
+	}
+
+reverse()会对原数组进行修改
+splice()会对原始数组进行修改
+
+concat()不会
+slice()不会
 ***
 
 
