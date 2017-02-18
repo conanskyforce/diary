@@ -544,6 +544,22 @@ splice()会对原始数组进行修改
 
 concat()不会
 slice()不会
+
+	function foo(){
+		this.b=100;
+		return this.a;    
+	}
+	var func = foo.bind({a:1});
+	
+	func();//
+	new func();//如果return返回的不是个对象的话，return就会返回this空对象,并且这个this是指以foo为构造函数生成的对象,即this的原型指向构造函数foo的prototype.
+
+bind方法
+
+绑定this
+科里化(默认参数,分离模块功能)
+
+
 ***
 
 
