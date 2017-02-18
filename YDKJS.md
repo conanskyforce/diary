@@ -470,9 +470,12 @@ undefined
 Object(Object,null,array,...)
 function
 
+匿名函数的执行
+	!function(){}()
 
+	(function(){})()
 
-
+	(function(){}())
 
 ***
 
