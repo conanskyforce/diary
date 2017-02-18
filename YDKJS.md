@@ -424,11 +424,57 @@ parseInt()针对的是字符串值
 
 	&& 运算符的优先级高于 || ，而 || 的优先级又高于 ? : 。
 
+程序的一部分现在运行,而另一部分则在将来运行,现在和将来之间有段间隙,在这段间隙中,程序没有活跃执行,事实上,程序中现在运行的部分和将来运行的部分之间的关系就是异步编程的核心.
+
+根据一个值的形态(具有哪些属性)对这个值的类类型做出一些嘉定，这种类型检查一般用术语 鸭子类型(duck typing)来表示,如果看起来像只鸭子，叫起来像只鸭子，那它就一定是只鸭子。
+
+对Promise的鸭子类型检测
+	
+	if (
+		p !== null &&
+		(
+			typeof p === "object" ||
+			typeof p === "function"
+		) &&
+		typeof p.then === "function"
+	) {
+		// 假定这是一个thenable!
+	}
+	else {
+	// 不是thenable
+	}
+
+然而其他,或其原型链上有then属性的对象也容易会被认为是Promise.
+
+Promise.resolve()将含有thenable属性的对象封装为可信任的Promise对象
+
+***
+判断值的类型的方法
+Object.prototype.toString.apply(obj);
+typeof obj;
+a instanceof obj;
+
+值的类型
+number
+string
+boolean
+null
+undefined
+Object(Object,array,null,function,..)
+
+typeof 能检测出来的类型
+number
+string
+boolean
+undefined
+Object(Object,null,array,...)
+function
 
 
 
 
 
+***
 
 
 
