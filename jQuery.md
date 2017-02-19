@@ -1,9 +1,9 @@
-
+#1. 初识jQuery
 加载jQuery库
 <script type="text/javascript" src=".../../jquery.js"></script>
 $等价于jQuery
 	
-	等待动漫元素加载完毕执行JavaScript
+	等待dom元素加载完毕执行JavaScript
 	$(document).ready(function(){
 	//执行JavaScript
 	})
@@ -116,45 +116,161 @@ $('a').nextAll('b');
 	:hidden;不可见元素
 ***
 
+jQuery方法
+show();显示隐藏的元素
+hide();隐藏元素
+css(name,value);设置元素样式
+text(string);设置匹配元素的文本内容
+filter(expr);筛选制定表达式与匹配的元素集合
+addClass(class);添加制定的类名
+removeClass(class);去掉类名
+is(":visible");判断元素是否可见
 
+jQuery中的toggle
 
+	$sthEle.click(function(){
+		if($someEle.is(":visible")){
+			//元素隐藏 执行1...
+		}else{
+			//元素显示 执行2...
+		}
+	});
+	等价于
+	$sthEle.toggle(function(){
+			//元素显示  执行3..
+		},function(){
+			//元素显示  执行4..
+	})
 
+#2 DOM操作
 
+1. 查找节点
+元素文本节点
+$('p').text();//p元素节点的文本
+属性节点
+$('p').attr('class');//p元素的class属性
 
+2. 创建节点
+$('ul').append($('<li class="active">雪梨</li>'));//创建li节点,将其添加到ul节点中
 
+3. 插入节点
+append()元素内部追加
+appendTo()互换追加顺序
+prepend()元素内部前置
+prependTo()互换
+after()元素之后插入
+insertAfter()互换
+before()元素之前插入
+insertBefore()互换
 
+4. 删除节点
+$('div').remove();//删除节点，但是之后还能引用
+$('div').empty();//清空元素中的所有后代节点
 
+5. 复制节点
+$('div').clone();浅复制
+$('div').clone(true);深复制,复制绑定事件
 
+6. 替换节点
+$('div').replaceWith('<li>someNode</li>')
+$('<li>someNode</li>').replaceAll('div')
 
+7. 包裹节点
+$('div').wrap('p');//用p把div包裹起来
+$('div').wrapAll('p');//用p把所有div包裹起来
+$('div').wrapInner('p');//用p把div内部包裹起来
 
+8. 属性操作
+attr()获取元素属性
+removeAttr()删除元素属性
+jQuery中很多方法都是同一个函数获取又设置的，不加参数就是获取，加了参数就是设置
+同样是这样的还有
+html()
+text()
+height()
+width()
+val()
+css()
 
+9. 样式操作
+$('div').attr('class');//获取div元素的class属性
+$('div').attr('class','more');//设置div元素的class属性为more
 
+追加样式
+$('div').addClass('high');//追加了一个叫high的类
 
+移除样式
+$('div').removeClass('high');//移除了一个叫high的类
 
+切换样式
+$('div').toggleClass('high');//如果有high类就删除,如果没有就添加
 
+判断是否含有某个样式
+$('div').hasClass('high');//判断div是否含有high类
 
+10. 设置、获取html、文本和值
 
+html()方法
+$('div').html();
+$('div').html('xxx');
 
+text()方法
+$('div').text();
+$('div').text('xxx');
 
+val()方法
+类似于JavaScript中的value属性,返回文本框,下拉列表,单选框,复选框的值(多选为包含值的数组)
+val()还有一个用处,它能使select(下拉框)，checkbox(多选框)和radio(单选框)响应的选项被选中
 
+11. 遍历节点
 
+children()方法,获得元素所有子元素的集合
+next(),获取匹配元素后边同辈元素
+prev(),获取匹配元素前边紧邻元素
+siblings(),获取所有同辈元素
 
+12. CSS-DOM操作
+$('p').css({'fontSize':'1.2em','backgroundColor':'whitesmoke'});
+$('p').height();//获取元素的高度
+与之相对的还有width()方法
 
+$('p').offset();//获取元素的相对偏移，返回对象有top和left属性
+$('p').position();//获取元素相对一最近一个position属性设置为relative或absolute的祖父节点的相对便宜
+$('p').scrollTop();//滚动条距离顶部
+$('p').scrollLeft();//滚动条距离左边
 
+#jQuery中的事件与动画
 
+1. 加载DOM与window.onload之间的差异
 
+	- 加载内容与速度
+	$(document).ready()只要DOM就绪就可以了
+	而window.onload必须等到每个元素都加载完毕，包括图片视频等
+	所以$(document).ready()会比window.onload快很多
+	$(window).load(function(){})
+	等价于
+	window.onload = function(){}
 
+	-多次使用
+	window.onload只能保存对一个函数的引用
+	$(document).ready()能在现有的行为上追加新的行为
+	
+	-简写
+	$(document).ready(function(){})可以简写为$(function(){})
 
+2. 事件绑定
+bind()方法
+bing(type[,data],fn);
+type事件类型参数,包括
+blur,focus,load,resize,scroll,unload,click,dbclick,mousedown,mouseup,mousemove,mouseover,mouseout,mouseenter,mouseleave,change,select,submit,keydown,keypress,keyup,error,也可以是自定义参数名
+第二个参数传递给事件对象额外的数据对象
 
+$('div').bind('click',function(){console.log(this)});
 
+简写绑定事件
+click,mouseover,mouseout这类事件,在程序中会经常使用到,jQuery提供了一套简写的方法.
 
-
-
-
-
-
-
-
+$('div').click(function(){})
 
 
 
