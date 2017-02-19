@@ -271,28 +271,89 @@ $('div').bind('click',function(){console.log(this)});
 click,mouseover,mouseout这类事件,在程序中会经常使用到,jQuery提供了一套简写的方法.
 
 $('div').click(function(){})
+$('div').mouseover(function(){})
+$('div').mouseout(function(){})
 
+合成事件
+hover()和toggle()
 
+$('div').hover(enter,leave);
+function enter(){};
+function leave(){};
 
+$('div').toggle(fn1,fn2,fn3...);
+function fn1(){};
+function fn2(){};
+function fn3(){};
 
+	事件对象
+	$('div').bind('click',function(event){
+		//do sth here.
+		event.stopPropagation();//停止事件冒泡
+		event.preventDefault();//阻止默认行为
+		return false;//同时阻止冒泡和默认行为
+	});
 
+事件对象的属性
+$('div').bind('click',function(event){//do sth});
+event.type 事件类型
+event.stopPropagation() 阻止冒泡
+event.preventDefault() 阻止默认事件
+event.target 获取到触发事件的元素
+event.relatedTarget
+event.pageX;//光标相对于页面的x坐标
+event.pageY;//光标相对于页面的y坐标
+event.which;//
 
+移除事件
 
+$('#btn').unbind();//移除id为btn的元素上边的所有事件
+unbind()没有参数则删除所有绑定事件
 
+$('#btn').unbind('click',myfunc);//解除绑定的myfunc的click事件
 
+只需单击一次，立即解除绑定
+one()方法
 
+$('#btn').one('click',function(){});
 
+模拟操作
+常用模拟
+$('#btn').trigger('click'[,data]);//触发click事件,以数组形式传入参数
+简写为
+$('#btn').click();
 
+trigger()事件触发事件并执行默认操作.
+triggerHadler()触发事件，然而取消默认事件.
 
+##jQuery动画
 
+show()和hide()方法
+$('div').hide()
+等价于
+$('div').css("display":"none")
 
+hide()方法隐藏元素之前会先记住原先display属性值,调用show()就恢复原先值
 
+fadeIn()和fadeOut()方法
+淡入和淡出
 
+slideUp()和slideDown()方法
 
+自定义动画方法
+animate(params,speed,callback);
+params为属性对象参数
+speed为速度
+callback为回调函数
 
+stop();//停止当前动画
+stop(true);//停止当前动画，并将动画队列清空
+stop(true,true);//清空动画队列，调到当前动画的结束时刻
 
+判断原始是否处于动画状态
+is(":animated");
 
-
+#jQuery表单、表格操作
 
 
 
