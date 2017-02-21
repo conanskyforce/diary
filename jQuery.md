@@ -384,7 +384,8 @@ is(":animated");
 
 	表单选择
 	<form id="sport" action="">
-	你爱好的运动是?<br />
+	你爱好的运动是?
+		<input type="checkbox" id="checkallone">全选/全不选<br />
 		<input type="checkbox" name="items" value="足球">足球
 		<input type="checkbox" name="items" value="篮球">篮球
 		<input type="checkbox" name="items" value="羽毛球">羽毛球
@@ -397,10 +398,11 @@ is(":animated");
 	
 	所以到最后原生JavaScript还是很吊
 	cka = $('input#checkall');
+	ckao = $('input#checkallone');
 	ckn = $('input#checkno');
 	ckr = $('input#checkrec');
 	sd = $('input#send');
-	all = $('input[type="checkbox"]');
+	all = $('[name="items"]:checkbox');
 	cka.click(function(){
 		// all.attr('checked',true);
 		// console.log($(all[0]).is(":checked"));
@@ -430,8 +432,24 @@ is(":animated");
 			this.checked=!this.checked;
 		})
 	})
+	ckao.click(function(){
+		all.each(function(){
+			this.checked = ckao[0].checked;
+		})
+	})
+	all.click(function(){
+		var flag = true;
+		all.each(function(){
+			if(!this.checked){
+				flag = false;
+			}
+		});
+		ckao[0].checked=flag;
+	})
 
+end()方法返回到当前对象
 
+	$('sele').siblings().addClass('scla').end().find(":radio").attr('checked',true);
 
 
 
