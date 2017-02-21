@@ -359,18 +359,77 @@ is(":animated");
 1. 表单标签,服务器url与方法
 2. 表单域，文本框，密码框，单选框之类
 3. 表单按钮，提交，重置按钮
+	
+	表格获得焦点和失去焦点后背景颜色的变化
+	$('input:first').focus(function(){
+		$(this).css({"backgroundColor":"whitesmoke"});
+	}).blur(function(){
+		$(this).css({"background-color":"white"})
+	});
+
+	点击改变文本域大小
+	$(":button:last").prev().click(function(){
+		//$('textarea[name]').height($('textarea[name]').height()+50);
+		if(!$('textarea[name]').is(':animated')){
+			$('textarea[name]').animate({"height":"+=50"},400);
+		}
+	});
+	$(":button:last").click(function(){
+		//$('textarea[name]').height($('textarea[name]').height()-50);
+		if(!$('textarea[name]').is(':animated')){
+		 $('textarea[name]').animate({"height":"-=50"},400);
+		}
+	});
 
 
-
-
-
-
-
-
-
-
-
-
+	表单选择
+	<form id="sport" action="">
+	你爱好的运动是?<br />
+		<input type="checkbox" name="items" value="足球">足球
+		<input type="checkbox" name="items" value="篮球">篮球
+		<input type="checkbox" name="items" value="羽毛球">羽毛球
+		<input type="checkbox" name="items" value="乒乓球">乒乓球<br />
+		<input type="button" id="checkall" value="全选">
+		<input type="button" id="checkno" value="全不选">
+		<input type="button" id="checkrec" value="反选">
+		<input type="button" id="send" value="提交">
+	</form>
+	
+	所以到最后原生JavaScript还是很吊
+	cka = $('input#checkall');
+	ckn = $('input#checkno');
+	ckr = $('input#checkrec');
+	sd = $('input#send');
+	all = $('input[type="checkbox"]');
+	cka.click(function(){
+		// all.attr('checked',true);
+		// console.log($(all[0]).is(":checked"));
+		all.each(function(){
+			this.checked=true;
+		})
+	});
+	ckn.click(function(){
+		// all.attr('checked',false);
+		// console.log($(all[0]).is(":checked"));
+		all.each(function(){
+			this.checked=false;
+		})
+	})
+	// ckr.click(function(){
+	// 	for(var a=0;a<all.length;a++){
+	// 		if($(all[a]).is(':checked')){
+	// 			$(all[a]).attr('checked',false);
+	// 		}else{
+	// 			$(all[a]).attr('checked',true);
+	// 		}
+	// 	}
+	// });
+	ckr.click(function(){
+		all.each(function(){
+			// $(this).attr('checked',!$(this).attr('checked'));
+			this.checked=!this.checked;
+		})
+	})
 
 
 
