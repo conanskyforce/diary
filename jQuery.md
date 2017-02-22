@@ -455,10 +455,45 @@ end()方法返回到当前对象
 	hasClass()
 	选择器
 
+##6.jQuery与Ajax	
+
+部分刷新
+美中不足,IE 5 之后才有XMLHttpRequest对象的,
+1.ajax必须做好浏览器兼容问题
+2.后退，前进按钮
+3.ajax对搜索引擎支持不足，所以推广处于劣势
+4.开发和调试工具的缺乏
+
+ajax方法
 	
+	function ajax(){
+		var res = null;
+		if(window.ActiveXObject){
+			res = new ActiveXObject("Microsoft.XMLHTTP");
+		}else if(window.XMLHttpRequest){
+			res = new XMLHttpRequest;
+		}
+		res.open("GET","test.php",true);
+		res.onreadystatechange = function(){
+			if(res.readyState == 4 ){
+				if(res.status == 200){
+					document.getElementById('sele').innerHTML = res.responseText;
+				}
+			}
+		};
+		res.send(null);
+	}
 
+jQuery 中的ajax
+$.ajax()
+$.load()
+$.get()
+$.post()
+$.getScript()
+$.getJSON()
 
-
+1. load()
+远程载入html代码并插入dom中
 
 
 
