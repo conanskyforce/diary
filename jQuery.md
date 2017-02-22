@@ -451,7 +451,11 @@ end()方法返回到当前对象
 
 	$('sele').siblings().addClass('scla').end().find(":radio").attr('checked',true);
 
+	has()
+	hasClass()
+	选择器
 
+	
 
 
 
