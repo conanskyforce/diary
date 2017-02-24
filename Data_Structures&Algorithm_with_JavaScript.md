@@ -146,9 +146,29 @@ empty属性表示栈内是否含有元素
 		}
 	}
 
+优先队列
 
-
-
+	function Patient(name,code){
+		this.name = name;
+		this.code = code;
+	}
+	function dequeue(){
+		var pri = this.dataStore[0].code;
+		for(var i=1;i<this.dataStore.length;++i){
+			if(this.dataStore[i].code<pri){
+				pri=1;
+			}
+		}
+		return this.dataStore.splice(pri,1);
+	}
+	function toString(){
+		var res = "";
+		for(var i=0;i<this.dataStore.length;i++){
+			res += this.dataStore[i].name+" code:"
+				+ this.dataStore[i].code+'\n';
+		}
+		return res;
+	}
 
 
 
