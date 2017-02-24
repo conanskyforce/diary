@@ -14,37 +14,67 @@ empty属性表示栈内是否含有元素
 
 用JavaScript模拟一个Stack类
 
-function Stack(){
-	this.dataStore = [];
-	this.top = 0;
-	this.push = push;
-	this.pop = pop;
-	this.peek = peek;
-	this.clear = clear;
-	this.length = length;
-}
+	function Stack(){
+		this.dataStore = [];
+		this.top = 0;
+		this.push = push;
+		this.pop = pop;
+		this.peek = peek;
+		this.clear = clear;
+		this.length = length;
+	}
 
-function push(element){
-	this.dataStore[this.top++];
-}
-function pop(){
-	return dataStore[--this.top];
-}
-function peek(){
-	return dataStore[this.top-1];
-}
-function clear(){
-	this.top = 0;
-}
-function length(){
-	return this.top;
-}
+	function push(element){
+		this.dataStore[this.top++] =element;
+	}
+	function pop(){
+		return this.dataStore[--this.top];
+	}
+	function peek(){
+		return this.dataStore[this.top-1];
+	}
+	function clear(){
+		this.top = 0;
+	}
+	function length(){
+		return this.top;
+	}
 
 ##使用Stack类
 
+将一个数字转换为指定数制
 
+	function tranBase(num,base){
+		var s = new Stack();
+		do{
+			s.push(num%base);
+			num = Math.floor(num/=base);
+		} while(num>0);
+		var converted = '';
+		while(s.length()>0){
+			converted+=s.pop();
+		}
+		return converted;
+	}
+	tranBase(75,2);
 
+判断是否是回文
 
+	function isPalindrome(word){
+		var s = new Stack();
+		for(var i=0;i<word.length;++i){
+			s.push(word[i])
+		}
+		var nword = '';
+		while(s.length()>0){
+			nword+=s.pop();
+		}
+		if(word==nword){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 
 
