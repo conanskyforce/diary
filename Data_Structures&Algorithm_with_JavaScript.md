@@ -76,9 +76,65 @@ empty属性表示栈内是否含有元素
 		}
 	}
 
+栈模拟递归
 
+	function fact(n){
+		var s = new Stack();
+		while(n>1){
+			s.push(n--);
+		};
+		var res = 1;
+		while(s.length()>0){
+			res*=s.pop();
+		};
+		return res;
+	}
 
+#队列
+队列是一种先进先出的数据结构(FIFO，first-in-first-out)，它被用在很多地方，比如提交操作系统执行的一系列进程，打印任务池，等一些模拟排队的情况。
 
+队列的操作，
+入队，排在最后
+出对，排在最前面的最先出
+
+数组模拟队列
+
+	function Queue(){
+		this.dataStore = [];
+		this.enqueue = enqueue;
+		this.dequeue = dequeue;
+		this.front = front;
+		this.back = back;
+		this.toString = toString;
+		this.empty = empty;
+	}
+//向队尾添加一个元素
+
+	function enqueue(element){
+		this.dataStore.push(element);
+	}
+//删除队首的元素
+
+	function dequeue(){
+		return this.dataStore.pop();
+	}
+//读取队首和队尾的元素
+
+	function front(){
+		return this.dataStore[0];
+	}
+	function back(){
+		return this.dataStore[this.dataStore.length-1];
+	}
+//显示队列所有元素
+
+	function toString(){
+		var allEle = '';
+		for(var i=0;i<this.dataStore.length;i++){
+			allEle+=this.dataStore[i]+'\n';
+		}
+		return allEle;
+	}
 
 
 
