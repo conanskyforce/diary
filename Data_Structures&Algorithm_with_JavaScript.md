@@ -12,13 +12,33 @@ push(),pop(),peek()是栈的3个主要方法，clear()方法清除栈内所有�
 length属性记录栈内元素个数
 empty属性表示栈内是否含有元素
 
+用JavaScript模拟一个Stack类
 
+function Stack(){
+	this.dataStore = [];
+	this.top = 0;
+	this.push = push;
+	this.pop = pop;
+	this.peek = peek;
+	this.clear = clear;
+	this.length = length;
+}
 
-
-
-
-
-
+function push(element){
+	this.dataStore[this.top++];
+}
+function pop(){
+	return dataStore[--this.top];
+}
+function peek(){
+	return dataStore[this.top-1];
+}
+function clear(){
+	this.top = 0;
+}
+function length(){
+	return this.top;
+}
 
 
 
