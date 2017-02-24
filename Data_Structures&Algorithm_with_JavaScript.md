@@ -135,7 +135,16 @@ empty属性表示栈内是否含有元素
 		}
 		return allEle;
 	}
+//判断队列是否为空
 
+	function empty(){
+		if(this.dataStore.length==0){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
 
 
 
