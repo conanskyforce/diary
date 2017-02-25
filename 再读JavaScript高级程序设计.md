@@ -8,7 +8,7 @@ Undefined
 Boolean
 String
 Number
-Object--包括Array，Function，object，Null
+Object--包括Array，Function，object，Null![](stop)
 
 typeof返回的结果有这么几种
 String
@@ -124,6 +124,8 @@ arguments类数组才是函数实际接收的参数
 复制引用类型结果还是会相互影响
 ***
 所有函数的参数都是按值传递的
+JS中的基本类型按值传递，对象类型按共享传递。
+**在调用函数传参时，和引用传递的不同在于，共享传递对函数形参的赋值，不会影响实参的值，而增加传入形参对象的属性，会对原对象产生影响。**
 
 检测类型--对于引用类型 typeof的帮助不大，但我们有
 instanceof（...是...的实例）
@@ -1178,7 +1180,7 @@ preventDefault()阻止默认行为cancelable设置为true时,才能取消默认�
 stopPropagation()阻止冒泡
 currentTarget正在处理事件的那个元素和this都是指向绑定事件处理器的元素
 target事件目标
-
+eventPhase表示当前位于事件流的哪个阶段，1为捕获阶段，2为处于目标对象上，3为冒泡阶段。2阶段时，this，target，currentTarget相等。
 通过一个函数处理多个事件,利用type属性
 
 IE中的事件对象,DOM0级添加事件处理程序时候,event作为window对象的一个属性存在
