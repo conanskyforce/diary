@@ -1166,6 +1166,21 @@ btn.detachEvent('onclick',myfunc);
 						return 1;
 				}
 			}
+		},
+		getWheelDelta:function(event){
+			if(event.wheelDelta){
+				return (client.engine.opera&&client.engine.opera<9.5?
+					-event.wheelDelta:event.wheelDelta);
+			}else{
+				return -event.detail * 40;
+			}
+		},
+		getCharCode:function(event){
+			if(typeof event.charCode == "number"){
+				return event.charCode;
+			}else{
+				return event.keyCode;
+			}
 		}
 	};
 
@@ -1318,10 +1333,21 @@ relatedTarget
 		}
 	}
 
+	(function(){
+		function func(event){
+			console.log(Event.getWheelDelta(EventUtil.getEvent(event)));
+		}
+		EventUtil.addHandler(document,"mousewheel",func);
+		EventUtil.addHandler(document,"DOMMousewheel",func);
+	}());
+
 键盘事件
 keydown
 keypress
 keyup
+
+任何可以获得焦点的时间都能够触发keypress,keydown,keyup
+只有编辑区才能触发textInput时间
 
 获得字符编码
 
