@@ -151,7 +151,7 @@ $('p').text();//p元素节点的文本
 $('p').attr('class');//p元素的class属性
 
 2. 创建节点
-$('ul').append($('<li class="active">雪梨</li>'));//创建li节点,将其添加到ul节点中
+$('ul').append($('<li class="active"\>雪梨</li\>'));//创建li节点,将其添加到ul节点中
 
 3. 插入节点
 append()元素内部追加
@@ -172,8 +172,8 @@ $('div').clone();浅复制
 $('div').clone(true);深复制,复制绑定事件
 
 6. 替换节点
-$('div').replaceWith('<li>someNode</li>')
-$('<li>someNode</li>').replaceAll('div')
+$('div').replaceWith('<li\>someNode</li\>')
+$('<li\>someNode</li\>').replaceAll('div')
 
 7. 包裹节点
 $('div').wrap('p');//用p把div包裹起来
@@ -492,17 +492,72 @@ $.post()
 $.getScript()
 $.getJSON()
 
-1. load()
+1. load()获取静态数据文件
 远程载入html代码并插入dom中
+a.load('b.html .para');//b中类为para的内容添加到a中
+
+2. get()和post()传递一些参数给服务器中的页面
+	$('sele').click(function(){
+		$.get('get1.php',{xx:xxx},function(data,status){
+				//data为返回内容,可以是xml文档,json文件,html片段等
+				//status为请求状态success,error,notmodified,timeut 4 种
+			})	
+	
+	})
+
+get将参数跟在url后边
+post作为消息实体传送参数
+get传输大小限制
+post大得多,理论上没有限制
+get请求到的数据会被浏览器缓存
+post不会
+
+3. getScript()与getJSON()
+jQuery动态的添加jquery
+$(document.createElement('script')).attr('src','https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js').appendTo('head');
+
+原生动态添加jQuery
+var scr = document.createElement('script');
+scr.setAttribute('src','https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js');
+var head = document.getElementsByTagName('head')[0];
+head.appendChild(scr);
 
 
+$.getScript('test.js');//加载js文件
 
+$.getJSON('test.json');//加载JSON文件
 
+4. ajax()方法
 
+	$.ajax({
+		type:"GET",
+		url:'test.json',
+		dataType:"json",
+		timeout:1000,
+		success:function(data){
+			console.log(data.username);
+		},
+		complete:fucntion(){
+			console.log(this);
+		},
+		error:function(){
+			console.log(this);
+		}
+	})
 
+序列化元素
+serialize()方法，将DOM元素内容序列化为字符串
+$('form').serialize()
+serializeArray()，将DOM元素序列化后,返回JSON格式数据
+param()方法,将数组或对象按照键/值对进行序列化
 
+ajax全局事件
+当ajax请求开始时，会触发ajaxStart方法，ajax请求结束会触发ajaxStop()方法值得注意的是这是个全局方法，即无论何处之哟啊哦有ajax请求发生时候就会触发他们
+(可以设置加载时候的动画，这可以极大的改善用户的体验)
+在$.ajax(options)中将global设置为false则不触发全局ajax事件
 
-
+❑a && b&& c&&d：返回第一个可转换为false的元素值。
+❑a||b||c||d：返回第一个可转换为true的元素值。
 
 
 
