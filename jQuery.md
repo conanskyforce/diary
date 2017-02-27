@@ -559,19 +559,85 @@ ajax全局事件
 ❑a && b&& c&&d：返回第一个可转换为false的元素值。
 ❑a||b||c||d：返回第一个可转换为true的元素值。
 
+Ajax的XMLHttpRequest对象的属性和方法
+
+1. readyState属性
+
+0 创建了XMLHttpRequest对象，但并未初始化
+1 准备发送，调用XMLHttpRequest对象的open()方法
+2 已发送已send()但还没有收到响应
+3 正在接受，接收到HTTP响应头
+4 完成响应状态
+
+2. responseTxet属性
+
+当readyState属性为0、1、2时，responseText属性包含空字符串,
+当readyState属性为3时候,包含未完成的响应信息
+当readyState属性为3时候,包含完整的响应信息
+
+3. responseXML
+
+只有当readyState属性为4，并且响应头Content-Type的MIME类型被制定为(text/null，或者application/xml)时候，才会被解析为一个xml文档，否则为null，回传xml文档结构不良或回转出问题也是返回null
+
+4. status属性
+
+描述HTTP状态码 200正常
+当readyState为3或4时候，才能对此进访问
+
+5. statusText属性
+
+描述HTTP状态码文本,当readyState为3或4时候，才能用
+
+6. onreadystatechange事件
+
+每当readyState顺序改变，都会触发这个事件
+
+7. open()方法
+
+open(method,uri,async,username,password)
+
+8. send()方法
+
+9. abort()方法
+暂停请求，取消接受
+
+10. setRequestHeader()方法
+设置头信息
+
+11. getResponseHeader()方法
+
+也可以getAllResponseHeader()方法获得所有的HttpResponse头部信息
 
 
+***
+jQuery.ajax()方法参数详解
+
+url string 默认当前页
+type string 默认GET
 
 
-
-
-
-
-
-
-
-
-
+	| name          | type          | des       |
+	| --------------|---------------| ----------|
+	| url           | string        | 默认当前页 |
+	| type          | string        |   GET,POST|
+	| timeout       | number        |   超时时间 |
+	| async         | Boolean       | 默认异步   |
+	| cache         | Boolean       |默认true缓存|
+	| data          | number        |   *       |
+	| dataType      | string        |   *       |
+	| beforeSend    | function      |   *       |
+	| complete      | function      |   *       |
+	| success       | function      |   *       |
+	| error         | function      |   *       |
+	| contentType   | string        |   *       |
+	| dataFilter    | function      |   *       |
+	| global        | Boolean       |   *       |
+	| ifModified    | Boolean       |   *       |
+	| jsonp         | string        |   *       |
+	| username      | string        |   *       |
+	| password      | string        |   *       |
+	| processData   | Boolean       |   *       |
+	| scriptCharset | number        |   *       |	
 
 
 
