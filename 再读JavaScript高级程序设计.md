@@ -1351,21 +1351,53 @@ keyup
 
 获得字符编码
 
-beforeunload事件，卸载之前弹出对话框问用户是否真的想卸载本页面。
+HTML 5 事件
 
-DOMContentLoaded事件在形成完整的DOM树之后就会触发。
+1.contextmenu事件(鼠标右键上下文菜单)
+$('div#div2').oncontextmenu = function(e){e.preventDefault()}
+
+2.beforeunload事件，卸载之前弹出对话框问用户是否真的想卸载本页面。
+window.onbeforeunload = function(e){
+msg = "over?";
+e.returnValue = msg
+return msg;
+}
+
+3.DOMContentLoaded事件在形成完整的DOM树之后就会触发。
 EventUtil.addhandler(document,"DOMContentLoaded",function(event){alert("Content loaded")});
+不支持DOMContentLoaded的浏览器可以在页面加载期间设置一个0毫秒的超时调用
+setTimeout(function(){//},0);
 
-readystatechange事件
+4.readystatechange事件
+支持readystatechange事件的每个对象都有一个readyState属性
 
+##内存和性能
+每个函数都是对象,都会占用内存,内存中对象越多,性能就越差,范根DOM次数越多，整个页面的交互也就越差
 
+事件委托
+利用事件冒泡管理一类型的所有事件
 
+移除事件处理程序
 
+##模拟事件
 
+模拟按键单击事件
+var btn = document.getElementById('myBtn');
 
+var event = document.createEvent('MouseEvents');
 
+event.initMouseEvent('click',true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null);
 
+btn.dispatchEvent(event);
 
+模拟键盘事件
+var textbox = document.getElementById('xyTextbox');
+
+if(document.implementation.hasFeature('KeyboardEvents','3.0')){
+event = document.createEvent('KeyboardEvent');
+event,initKeyboardEvent('keydown',true,true,document.defaultView,'a',0,"shift",0)
+}
+textbox.dispatchEvent(event);
 
 
 
