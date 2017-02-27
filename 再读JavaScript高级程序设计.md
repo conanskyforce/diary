@@ -1449,14 +1449,49 @@ JavaScript中调用submit也能提交表单
 var form = document.getElementById('myForm');
 form.submit();
 
+重置表单
+<input type="reset" value="reset form"/>
+<button type="reset"></button>
 
+表单字段
+表单都有elements书，表示表单中所有元素的集合
+var form=document.forms[0]
+var field1 = form.elements[0]
+var field2 = form.elements['textbox1'];//有可能返回的是NodeList
 
+多次重复提交表单解决方案
+EventUtil.addHandler(form,'submit',function(e){
+e. = EventUtil.getEvent(e);
+var target = EventUtil.getTarget(e);
+var btn = target.elements['submit-btn'];
+btn.disabled = true;
+})
 
+共有的表单字段方法
+focus()和blur()
 
+默认情况下，只有表单字段可以获得焦点，但是对于其他元素，如果将其tabIndex设置为-1，然后调用focus()方法，也可以让这些元素获得焦点。
 
+设置文本框的值
+var textbox = document.forms[0].elements['textbox1'];
+textbox.value = "some new value";
 
+选择文本
 
+文本框获得焦点时，选择所有的文本，这是一种非常常见的做法，特别是文本框包含默认值的时候，免去了用户一个个的删除
+EventUtil.addHandler(textbox,'focus',function(e){
+e = EventUtil.getEvent(e);
+var target = EventUtil.getTarget(e);
+target.select();
+})
 
+也有一个select事件
+选择文本框中文本时候，触发select事件
+取得用户在文本框中选择的文本
+	
+	function getSelectText(tbox){
+		return tbox.value.substring(tbox.selectionStart,tbox.selectionEnd);
+	}
 
 
 
