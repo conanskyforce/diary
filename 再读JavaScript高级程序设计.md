@@ -1399,16 +1399,55 @@ event,initKeyboardEvent('keydown',true,true,document.defaultView,'a',0,"shift",0
 }
 textbox.dispatchEvent(event);
 
+IE中的事件模拟
+var btn = document.getElementById('mybtn');
 
+var event = document.createEventObject();
 
+event.screenX = 100;
+event.screenY = 0;
+event.clientX = 0;
+event.clientY = 0;
+event.ctrlKey = false;
+event.altKey = false;
+event.shiftKey = false;
+event.button = 0;
+btn.fireEvent('onclick',event);
 
+#14章 表单脚本
 
+HTML中表单偶<form>元素表示，在JavaScript中对应的则是HTMLFormElement类型
+HTMLFormElement也有它自己独有的属性和方法
+acceptCharset
+action
+elements
+length
+method
+name
+reset()
+submit()
 
+取得form元素引用的方式有好几种，
+var form = document.getElementsByTagName('form')[0]...
+document.forms取得所有表单
 
+提交表单
 
+<input type="submit" value="submit form">
+<button type="submit"></button>
+<input type="image" src="xxx.gif">
+上述右焦点的情况按下回车键就会提交表单
 
+Event.addHandler(form,'submit',function(event){
+//取得事件对象
+event.EventUtil.getEvent(event);
+//阻止默认事件
+EventUtil.preventDefault(event);
+})
 
-
+JavaScript中调用submit也能提交表单
+var form = document.getElementById('myForm');
+form.submit();
 
 
 
