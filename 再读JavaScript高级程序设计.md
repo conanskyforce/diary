@@ -1096,7 +1096,7 @@ btn.detachEvent('onclick',myfunc);
 
 跨浏览器事件处理程序
 
-	var EventUitl = {
+	var EventUtil = {
 		addHandler:function(element,type,handler){
 			if(element.addEventListener){
 				element.addEventListener(type,handler,false);
@@ -1180,6 +1180,17 @@ btn.detachEvent('onclick',myfunc);
 				return event.charCode;
 			}else{
 				return event.keyCode;
+			}
+		},
+		getClipboardText:function(event){
+			var clipboardData = (event.clipboardData||window.clipboardData);
+			return clipboardData.getData('text');
+		},
+		setClipboardText:function(event,value){
+			if(event.clipboardData){
+				return event.clipboardData.setData('text/plain',value);
+			} else if(window.clipboardData){
+				return window.clipboardData.setData('text',value);
 			}
 		}
 	};
@@ -1493,6 +1504,17 @@ target.select();
 		return tbox.value.substring(tbox.selectionStart,tbox.selectionEnd);
 	}
 
+输入框屏蔽特定字符，检测keypress时间对应的字符编码，然后再决定如何响应
+
+	屏蔽非数字值字符，但不会屏蔽触发keypress事件的基本按键
+	EventUtil.addHandler(textbox,"keypress",function(event){
+		event = EventUtil.getEvent(event);
+		var target = EventUtil.getTarget(event);
+		var charcode = EventUtil.getCharCode(event);
+		if(!/\d/.test(String.fromCharCode(charCode))&&charCode>9&&!event.ctrlKey){
+			EventUtil.preventDefault(event);
+		}
+	})
 
 
 
