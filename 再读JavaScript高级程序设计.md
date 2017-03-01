@@ -1538,19 +1538,110 @@ selectbox1.appendChild(selectbox.option[0]);
 
 表单序列化
 
+* 表单字段的名称和值进行URL编码，使用&分隔
+* 不发送禁用表单字段
+* 只发送勾选的单选框和复选框
+* 不发送type为reset和button的按钮
+* 多选选择框中每个选中值单独一个条目
+* select元素的值是选中option的value的值，如果option没有value，则为option元素的文本值
 
+	function serialize(form){
+	var parts = [];
+	field = null;
+	i,
+	len,
+	optLen,
+	option,
+	optValue;
+	for( i=0;len=form.elements.length;i<len;i++){
+		field = form.elements[i];
+		switch(field.type){
+			case "select-one":
+			case "select-multiple":
+			if(field.name.length){
+				for(j=0;optLen=field.options.length;j<optLen;j++){
+					option = field.option[j];
+					if(option.selected){
+						optValue = "";
+						if(option.hasAttribute){
+							optValue = (option.hasAttribute('value')?
+										option.value:option.text);
+						}else{
+							optValue = (option.attribute['value'].specifid?
+										option.value:option.text);
+						}
+						parts.push(encodeURIComponent(field.name)+ "="+
+							encodeURIComponent(optValue));
+					}
+				}
+			}
+			break;
+			case undefined:
+			case 'file':
+			case "submit":
+			case 'reset':
+			case 'button':
+				break;
+			case 'radio':
+			case 'checkbox':
+				if(!field.checked){
+					break;
+				}
+			default:
+				if(field.name.length){
+					parts.push(encodeURIComponent(field.name)+"="+
+								encodeURIComponent(field.value));
+				}			
+			}
+		}
+		return parts.join('&');
+	}
 
+#错误处理
 
+	try{
+		//maybe error
+	} catch(error){
+		console.log(error.message);
+	}
 
+只要包含finally句子，无论try还是catch语句块中的return都将被忽略,
 
+7中错误类型
+Error
+EvalError
+RangeError
+ReferenceError
+SyntaxError
+TypeError
+URIError
 
+Error是基本类型
+EvalError是在eval()发生一场了时候抛出
+RangeError值数值超出范围
+ReferenceError找不到对象
+SyntaxError语法错误
+TypeError类型错误
+URIError，URI格式不正确
 
+throw new ReferenceError("this is a ReferenceError");
 
+自定义错误
 
+function customError(msg){
+	this.name = "customError";
+	this.message = msg;
+}
+customError.prototype = new Error();
 
+throw new customError("this is a customError");
 
+常见错误类型
+类型转换错误
+数据类型错误
+通信错误
 
-
+530
 
 
 
