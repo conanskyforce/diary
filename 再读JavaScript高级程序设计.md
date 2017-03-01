@@ -1516,8 +1516,27 @@ target.select();
 		}
 	})
 
+JavaScript动态添加选项
+方法1：
+var newOption = document.createElement("option");
+newOption.appendChild(document.createTextNode('option text');
+newOption.setAttribute('value','option value');
+selectbox.appendChild(newOption);
+方法2：
+var newOption = new Option('option text','option value');
+selectbox.appendChild(newOption);//IE8及之前版本有问题
+方法3：
+var newOption = new Option('Option text','Option value');
+selectbox.add(newOption,undefined);
 
+移除选项
+selectbox.option[0]=null
+selectbox.remove(0)
 
+移动和重排选项
+selectbox1.appendChild(selectbox.option[0]);
+
+表单序列化
 
 
 
