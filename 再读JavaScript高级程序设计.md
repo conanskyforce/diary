@@ -1642,13 +1642,31 @@ throw new customError("this is a customError");
 通信错误
 
 530
+避免浏览器响应JavaScript错误的方法
+- 可能发生错误的地方使用try-catch语句
+- 使用window.error时间处理程序，可以接受try-catch不能处理的所有错误
+- 明确什么是知名错误什么是非致命错误
+- 判断最可能发生错误的地方
+- 类型转换
+- 未充分检测数据类型
+- 发送给服务器或从服务器接收到的数据有错误
 
+如果用DOM 0 级的2个方法赋值的事件监听函数不能在capturing阶段捕捉到事件
 
+#JavaScript和XML
 
+对于XML的XPath
 
+#20章 JSON——一种结构化表示数据的格式
 
+JSON可以表示三种类型的值
+1. 简单值，可以表示字符串，数值，布尔值和null，但不支持undefined
+字符串必须双引号
+2. 对象，对象-有序的键值对
+3. 数组
 
-
+JSON.stringify()将JavaScript对象序列化为JSON字符串
+JSON.parse()将JSON字符串解析为原生的JavaScript的值
 
 
 
