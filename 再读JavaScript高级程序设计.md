@@ -1668,26 +1668,161 @@ JSON可以表示三种类型的值
 JSON.stringify()将JavaScript对象序列化为JSON字符串
 JSON.parse()将JSON字符串解析为原生的JavaScript的值
 
+JSON.stringify()传入的第二个参数可以是数组也可以是函数，传入函数的时候，会传入两个参数，属性名和属性值
 
+JSON.stringify()第三个参数用于控制结果中的缩进和空白符
 
+通过对象上调用toJSON()方法，返回其自身的JSON数据
 
+#Ajax与Comet
 
+创建XMLHttpRequest对象
 
+	var xhr = new XMLHttpRequest();
+	针对ie5,ie6
+	var xmlhttp;
+	if(window.XMLHttpRequest){
+		xmlhttp = new XMLHttpRequest();
+	}
+	else{
+		xmlhttp = new ActiveXObject('MicroSoft.XMLHTTP');
+	}
+	
+XHR对象的方法
+open方法
+xhr.open('GET','xxx.php',false);//"GET"方法，发送到xxx.php，不使用异步
+xhr.send();
+发送同步请求之后，JavaScript代码会等到服务器响应之后在继续执行。
+而受到响应之后，数据会自动填充XHR对象的属性
+responseText：作为响应体被返回的文本
+responseXML：作为响应体被返回的XML文档
+status：响应的HTTP状态
+statusText：HTTP状态的说明
 
+发送异步请求
+可以通过检测XHR对象的readyState属性来获得当前活动阶段
+0未初始化
+1启动，已经调用open方法
+2发送已经调用send方法
+3接受接收到部分数据
+4已经接受到全部响应数据
 
+readyState属性每变化一次，都会触发一次readystatechange事件，所以可以像下边这样写ajax
 
+	var xhr;
+	if(window.XMLHttpRequest){
+		xhr = new XMLHttpRequest();
+	}else{
+		xhr = new ActiveXObject('Microsoft.XMLHTTP');
+	}
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status >= 200&&xhr.status<300||xhr.status==304){
+				alert(xhr.responseText);
+			}else{
+				alert("xhr.status: "+xhr.status);
+			}
+		}else{
+			alert('xhr.readyState: '+xhr.readyState);
+		}
+	}
+	xhr.open('GET','/');
+	xhr.send(null);
 
+HTTP头部信息
+XHR对象的setRequestHeader方法能够设置发送ajax信息的HTTP头部信息
 
+XHR对象的getResponseHeader()方法可以获得传入头部字段名称对应的信息
+getAllResponseHeaders()方法获得全部头部信息
 
+GET请求，通常用于获得和查询数据
+而已将查询字符串最佳到URL末尾，但需要正确的编码才行，且所有的键值对都必须由&分隔。
 
+	添加URL参数函数
+	function addURLParam(url,name,value){
+		url += (url.indexOf("?")==-1?"?":"&");
+		url += encodeURIComponent(name) + "=" +encodeURIComponent(value);
+		return url;
+	}
+	
+POST请求，通常用于向服务器发送被保存的数据。POST请求可以包含非常多的数据，而且格式不限。
 
+从性能的角度来看的话，发送相同的数据，GET请求的速度是POST两倍。
 
+XMLHttpRequest 2 级别
 
+FormData对象
 
+var form = new FormData();
+form.append('name','conan');
+使用FormData的好处就是不用设置头部，XHR对象能够自动识别传入的数据类型是FormData
 
+超时设定
 
+给xhr的timeout属性设置一个值后，在规定时间内没有收到响应，就会触发timeout事件，进而调用ontimeout事件处理程序。
 
+重写xhr响应的mime类型
 
+xhr.overrideMimeType('text/xml');
+
+##进度事件
+
+6个进度事件
+loadstart：接受到响应数据的第一个直接时触发
+progress:在接收响应期间持续不断的触发
+error：在请求发生错误时触发
+abort：在因为调用abort()方法二总之连接时触发
+load：在接收到完整的响应诗句触发
+loadend：通信完成，或者触发error，abort，load后触发
+
+每个请求都是以loadstart事件开始，然后是一个或多个progress事件，然后触发error，abort或load事件中的一个，最后触发loadend事件。
+
+创建一个进度指示器的实例
+
+	function createXHR(){
+		var xhr;
+		if(window.XMLHttpRequest){
+			xhr = new XMLHttpRequest();
+		}else{
+			xhr = new ActiveXObject('Microsoft.XMLHTTP');
+		}
+		return xhr;
+	}
+	var xhr = createXHR();
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4){
+			if(xhr.status == 200){
+				console.log(xhr.status+" "+xhr.statusText);
+				console.log('xhr.readyState: '+xhr.readyState);
+			}
+		}
+	}
+	var bar = document.createElement('div');
+		bar.style.width = "200px";
+		bar.style.height = "5px";
+		bar.style.position = 'absolute';
+		bar.style.top = "200px";
+		bar.style.left = "200px";
+		bar.style.backgroundColor = "red";
+		bar.id ="bar";
+		document.body.appendChild(bar);
+	xhr.onprogress = function (event){
+		var bar = document.getElementById('bar');
+		if(event.lengthComputable){
+			bar.width =bar.width*(event.position/event.totalSize);
+		}
+	}
+	xhr.open('GET','/');
+	xhr.send(null);
+
+跨域CORS（cross-origin-resources sharing，跨资源共享）。
+CORS背后的基本思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定请求或相应应该成功，还是应该失败。
+
+发送请求的时候，添加一个origin头部
+Origin:http://www.conans.top
+如果服务器认为这个请求可以接受
+Access-Control-Allow-Origin:http://www.conans.top
+请求和响应都不包含cookie信息
 
 
 
