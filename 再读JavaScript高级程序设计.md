@@ -1824,27 +1824,119 @@ Origin:http://www.conans.top
 Access-Control-Allow-Origin:http://www.conans.top
 请求和响应都不包含cookie信息
 
+IE对CROS的实现
+
+	var xdr = new XDomainRequest();
+	xdr.onload = function(){
+		alert(xdr.responseText);
+	}
+	xdr.onerror = function (){
+		alert("an error occurred");
+	};
+	xdr.timeout = 1000;
+	xdr.ontimeout = function(){
+		alert("request timeout")
+	}
+	xdr.open('get','/');
+	xdr.send(null);
+
+jsonp原理，通过script标签引入js文件，这个js文件载入成功后会执行我们在url参数中制定的函数，并且回吧我们需要的json数据作为参数传入
+
+jquery方便的进行jsonp操作
+
+$.getJSON('http://conans.top?callback=?',function(json){console.log(json)})
 
 
+	function locator(json){
+		console.log("your ip address is : "+json.ip+"\n"+"city: "+json.city+"\n"+json.region_name)
+	}
+	var script = document.createElement('script');
+	script.src = "http://freegeoip.net/json/?callback=locator";
+	document.body.insertBefore(script,document.body.firstChild);
 
+#22章 高级技巧
 
+1. 高级函数
+安全类型检测
 
+	function isArray(value){
+		return Object.prototype.toString.call(value) == "[object Array]";
+	}
+	function isFunction(value){
+		return Object.prototype.toString.call(value) == "[object RegExp]";
+	}
+	function isRegExp(value){
+		return Object.prototype.toString.call(value) == "[object RegExp]";
+	}
 
+惰性载入，结束老是重复if判断语句的方法
 
+1. 函数被调用时候再处理函数。
+2. 申明函数的时候就制定适当的函数。
 
+函数绑定
 
+	function bind(fn,context){
+		return function(){
+			return fn.apply(context,arguments);
+		};
+	}
 
+函数科里化，函数模块化，常见于预先设定参数,一般通过闭包，绑定call和apply
 
+创建科里化函数的通用方式
 
+	function curry(fn){
+		var args = Array.prototype.slice.call(arguments,1);
+		console.log(args);
+		return function (){
+			var innerArgs = Array.prototype.slice.call(arguments);
+			console.log(innerArgs);
+			var finalArgs = args.concat(innerArgs);
+			console.log(finalArgs);
+			return fn.apply(null,finalArgs);
+		};
+	}
+	
+	function add(num1,num2){
+		return num1+num2;
+	}
+	curriedAdd = curry(add,5,12);//22
 
+对象防篡改
 
+1. 不可扩展
+Object.preventExtensions(obj);
+之后便不能添加新的属性和方法了.
+Object.isExtensible(obj);
+检测对象是否可扩展
 
+2. 密封对象
+Object.seal(obj);
+不能删除或增加属性或方法了
+Object.isSealed()方法能够确定对象是否被密封
 
+3. 冻结对象
+Object.freeze(obj);
+不可扩展，又是密封，writable属性又会被设置为false
+但是定义[[set]]函数，访问器属性仍然是可写的。
+Object.isFrozen()判断对象是否被冻结
 
+JavaScript定时器时间间隔表示何时将定时器的代码添加到队列，而不是何时实际执行代码
 
+##JavaScript的strict模式
 
-
-
+- 所有变量都必须var申明
+- 禁止使用with改变作用域
+- 创建eval作用域
+- 禁止this指向全局作用域
+- 禁止caller与arguments
+- 禁止删除变量
+- 删除修改不可变对象的属性时，显示报错
+- 对象不能有重名属性,函数不能有重名参数
+- 禁止8进制表示法
+- 禁止使用arguments.callee即无法在匿名函数内部调用自身了
+- 等
 
 
 
