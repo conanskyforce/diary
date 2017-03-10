@@ -639,14 +639,40 @@ type string 默认GET
 	| processData   | Boolean       |   *       |
 	| scriptCharset | number        |   *       |	
 
+***
 
+1. XML语法简要
 
+- 任何标签都要有起始和闭合标签
+- 可以简化<tag/> 解析器会翻译成<tag></tag>
+- 标签顺序嵌套
+- 所有属性都要有值,并且值的周围加上双引号
 
+2. Content-Type
 
+- header("Content-Type:text/xml");//PHP
+- response.Content-Type="text/xml"//ASP
+- response.setContent-Type('text/xml');//JSP
 
+3. XML结构
 
+封闭，只有一个顶层
 
+4. 获取XML
 
+$.get('ajax.xml',function(xml){
+	//解析xml
+})
+
+5. 解析XML
+
+find()children()each()text()attr()方法解析XML
+
+6. 禁用缓存
+
+$.get('ajax.xml?'+(+new Date),function(xml){
+//do sth.
+}) 
 
 
 
