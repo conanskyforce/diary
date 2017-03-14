@@ -1938,16 +1938,31 @@ JavaScript定时器时间间隔表示何时将定时器的代码添加到队列�
 - 禁止使用arguments.callee即无法在匿名函数内部调用自身了
 - 等
 
+判断一个值是否是NaN
 
+	function IsNaN(value){
+		return typeof(value)==='number'&&isNaN(value);
+	}
 
+	function IsNaN(){
+		return value!=value;
+	}
 
+parseInt的返回值只可能两种，十进制整数，或者NaN
 
+Base64转码
 
+btoa()
 
+	function BaseEncode(a){
+		return btoa(encodeURIComponent(a))
+	}
 
-
-
-
+	function BaseDecode(a){
+		return decodeURIComponent(atob(a))
+	}
+	
+函数执行时所在的作用域，是定义时的作用域，而不是调用时所在的作用域。
 
 
 
