@@ -1964,9 +1964,25 @@ btoa()
 	
 函数执行时所在的作用域，是定义时的作用域，而不是调用时所在的作用域。
 
+将arguments转换为真正的数组
+方法1
+	var args = Array.prototype.slice.call(arguments);
+	
+	var args = [];
+	for(var a=0;a<arguments.length;a++){
+		args.push(arguments[a]);
+	}
 
+自定义错误类型
 
+function MyError(msg){
+this.message = msg||'MyError default msg';
+this.name = "MyError";
+}
+MyError.prototype = new Error();
+MyError.prototype.constructor = MyError;
 
+console的assert方法接受两个参数,第一个是表达式,第二个是表达式不为真弹出的对象
 
 
 
