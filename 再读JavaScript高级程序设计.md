@@ -2023,6 +2023,15 @@ return语句执行在前，
 	result
 	// false
 
+随机数生成
+	//返回随机数[min,max)
+	function randNum(min,max){
+		return Math.random()*(max-min)+min;
+	}
+	//返回随机数[min,max]
+	function randInt(min,max){
+		return Math.floor(Math.random()*(max-min+1))+min;
+	}
 
 
 
