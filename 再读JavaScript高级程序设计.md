@@ -2032,22 +2032,44 @@ return语句执行在前，
 	function randInt(min,max){
 		return Math.floor(Math.random()*(max-min+1))+min;
 	}
+	//返回随机字符
+	function randomStr(length){
+		var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		alphabet+="abcdefghijklmnopqrstuvwxyz";
+		alphabet+="0123456789-_";
+		var str = "";
+		for(var a=0;a<length;a++){
+			var rand = Math.floor(Math.random()*alphabet.length);
+			str += alphabet.substring(rand,rand+1);
+		}
+		return str;
+	}
+	randomStr(12);
 
+[^]包含一切字符
+\d，0-9之间数字[0-9]
+\D，0-9之间数字之外[^0-9]
+\w，任意数字字母下划线[A-Za-z0-9_]
+\W，任意非数字字母下划线[^A-Za-z0-9_]
+\s，空格，包括制表、空格、断行[\t\r\n\v\f]
+\S，非空格[^\t\r\n\v\f]
+\b，匹配词边界，边界没有数字字母相连接
+\B，非边界
 
+	/\bworld/.test('hello-world') // true
+	/\bworld/.test('hello2world') // false
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// 正常匹配
+	var url = /(http|ftp):\/\/([^/\r\n]+)(\/[^\r\n]*)?/;
+	
+	url.exec('http://google.com/');
+	// ["http://google.com/", "http", "google.com", "/"]
+	
+	// 非捕获组匹配
+	var url = /(?:http|ftp):\/\/([^/\r\n]+)(\/[^\r\n]*)?/;
+	
+	url.exec('http://google.com/');
+	// ["http://google.com/", "google.com", "/"]
 
 
 
