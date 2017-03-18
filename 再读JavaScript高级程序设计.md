@@ -2071,18 +2071,80 @@ return语句执行在前，
 	url.exec('http://google.com/');
 	// ["http://google.com/", "google.com", "/"]
 
+console.assert(exp,args);//exp成立时，输出args参数
 
+命令行api
+$(selector);//返回一个数组,实际上就是document.querySelectorAll()
+$()==$$()
+$x(xpath);//返回一个数组包含XPath表达式的所有DOM元素
 
+Object.defineProperty(obj,ele,{xx:xx});//默认writable,enumerable,configurable都为false.
+writable为false，不可写
+enumerable为false,不可遍历,属性不出现在for...in和Object.keys(),和JSON.stringify()方法中,但是in可以描述
+Object.getOwnPropertyNames()方法返回自身所有属性,包括不可枚举属性
+configurable为false,不可重新定义所有属性也不可delete属性,但writable可以有true改为false
+对于value,只要writable和configurable有一个为true,就允许改动
 
+值得一提的是var申明的变量configurable默认为false
+var a = 6;
+JSON.stringify(Object.getOwnPropertyDescriptor(window,'a'),null,2);
+"{
+  "value": 6,
+  "writable": true,
+  "enumerable": true,
+  "configurable": false
+}"
+//可重写，可遍历不可删除
+writable为false则不可以被重写,
 
+一般情况，系统原生的属性都是不可枚举的
+所以
+Object.keys(Object);//[]
+Object.keys(Object.prototype);//[]
+Object.keys([]);//[]
 
+Object.getOwnPropertyNames(Object.prototype);
+// ['hasOwnProperty',
+//  'valueOf',
+//  'constructor',
+//  'toLocaleString',
+//  'isPrototypeOf',
+//  'propertyIsEnumerable',
+//  'toString']
 
+存读函数:
+setter---set
+getter---get
+1.直接通过定义对象的时候定义
+	var o = {
+		get g(){
+			return 'getter';
+		},
+		set g(value){
+			return 'setter'+value;
+		}
+	}
+2.通过Object.defineProperty()定义
+	var o = {};
+	Object.defineProperty(o,'year',{
+		get:function(){
+			return new Date().getFullYear();
+		},
+		set:function(v){
+			return new Date(v).getFullYear();
+		}
+	})
 
-
-
-
-
-
+利用存取器,实现数据对象与DOM对象的双向绑定
+	Object.defineProperty(user,'name',{
+		get:function(){
+			return document.getElementById('foo').value;
+		},
+		set:function(newValue){
+			document.getElementById('foo').value = newValue;
+		},
+		configurable:true
+	});
 
 
 
