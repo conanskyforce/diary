@@ -108,10 +108,16 @@ command --help 指定帮助
 man command 帮助文档
 
 nano 文本编辑器
+su - 切换到root用户
+sync 同步磁盘
 
+shutdown -r 系统服务停掉之后重启
+shutdown -h 系统服务停掉之后关机
+shutdown -h now 你可管机
+shutdown -h +30 30分钟后关机
+shutdown -r +30 'will reboot 30minutes' 提示30分钟后重启
 
-
-
+p211页
 
 
 
