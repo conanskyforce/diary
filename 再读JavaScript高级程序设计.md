@@ -2146,13 +2146,72 @@ getter---get
 		configurable:true
 	});
 
+#OOP
+构造函数的三个特点
+函数体内部使用了this关键字
+生成对象的时候,必须调用new
+构造函数名第一个字母大写(不是强制)
 
+可以在构造函数内部第一行加上'use strict'，this将指向undefined
 
+new命令原理
 
+1.创建一个空对象
+2.将这个空对象的原型指向构造函数的prototype属性
+3.将空对象赋值给函数内部的this对象
+4.返回this对象
 
+如果构造函数内部有return语句，且返回的是对象，那就返回这个对象，
+如果没有，就返回this对象。
 
+new命令总是返回一个对象,要么是实例对象,要么是return语句返回的对象
 
+##this关键字
+总是返回一个对象,当前属性或方法所在的对象
+this会随着环境的切换而切换
 
+1.全局环境this指向顶层对象
+浏览器中就是window
+nodejs中就全局指向global,模块指向module.exports
+2.构造函数中的this指向调用属性/方法的对象
+3.将对象的方法赋值给另一个对象的时候，this会指向最终对象
+	看3个例子
+	1.
+	var o = {
+		a:'alooo',
+		b:'xixixi',
+		f:function(){
+			console.log(this)
+		}
+	}
+	o.f();//Object {a: "alooo", b: "xixixi", f: function}
+
+	2.
+	var o = {
+		a:'ooo',
+		b:'xixixi',
+		f:function(){
+			return Array.prototype.map.call(this.b,function(ele,idx,arr){
+		'use strict'
+		return this.a+ele;
+	}).join('');
+		}
+	}
+	o.f();//TypeError Cannot read property of undefined
+
+	3.
+	var o = {
+		a:'ooo',
+		b:'xixixi',
+		f:function(){
+			that = this;
+			return Array.prototype.map.call(this.b,function(ele,idx,arr){
+		'use strict'
+		return that.a+ele;
+	}).join('');
+		}
+	}
+	o.f();//"oooxoooioooxoooioooxoooi"
 
 
 
