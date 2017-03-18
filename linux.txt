@@ -1,4 +1,4 @@
-一个0或1我们成为一个bit(比特,位) 
+﻿一个0或1我们成为一个bit(比特,位) 
 8个bits为1 byte(字节)
 1K = 1024 Bytes
 1G = 1024*1024*1024 Bytes
@@ -88,17 +88,26 @@ o  安装比较过时的 CentOS 5.x 最新版
 	的分区为 /boot, /, /home, /tmp, /var 等分区， 数据磁盘全部容量规划在同一个分区槽而已。
 	o  安装最新的 CentOS 7.x 版
 
+使用分区表装cenos7
+tab键输入
+inst.gpt
 
+Linux 预设的情况下会提供六个
+Terminal 来让使用者登入， 切换的方式为使用：[Ctrl] + [Alt] + [F1]~[F6]的组合按键
 
+date +%Y/%m/%d 显示年月日
+cal [month] [year] 显示日历
+bc 计算器 scale设置小数点位数
 
+ctrl+c 中断程序
+ctrl-d 表示End Of File 退出文字借口(exit)
+[shift]+{[PageUP]|[Page Down]} 前后翻页
 
+学习怎么快速学习，是个很必要的过程。
+command --help 指定帮助
+man command 帮助文档
 
-
-
-
-
-
-
+nano 文本编辑器
 
 
 
