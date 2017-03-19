@@ -2213,28 +2213,77 @@ nodejs中就全局指向global,模块指向module.exports
 	}
 	o.f();//"oooxoooioooxoooioooxoooi"
 
+绑定this的方法
 
+Function.prototype.call()方法
+call方法传入的应该是一个对象,如果参数空,null,undefined，默认为全局对象
+Function.prototype.call(obj,arg1,arg2,....)
+第一个为要绑定this的对象，后边的是函数调用时候需要的参数
 
+Function.prototype.apply()方法
+与call唯一区别就是后边的参数跟数组
+Function.prototype.apply(obj,[arg1,agr2,...])
 
+function f(x,y){
+  console.log('x: '+x)
+  console.log('y: '+y)
+  console.log('x+y: '+x+y);
+}
+f.call(null,[1,1])
+//x: 1,1
+//y: undefined
+//x+y: 1,1undefined
 
+bind方法用于将函数体内的this绑定到某个对象，然后返回一个新函数
 
+	var add = function (x, y) {
+	  console.log(x);
+	  console.log(this.m);
+	  console.log(y);
+	  console.log(this.n);
+	  return x + this.m + y + this.n;
+	}
+	var obj = {
+	  m: 2,
+	  n: 2
+	};
+	var newAdd = add.call(obj, 5);
+	newAdd();
+	//5
+	//2
+	//undefined
+	//2
 
+	var add = function (x, y) {
+	  console.log(x);
+	  console.log(this.m);
+	  console.log(y);
+	  console.log(this.n);
+	  return x + this.m + y + this.n;
+	}
+	var obj = {
+	  m: 2,
+	  n: 2
+	};
+	var newAdd = add.bind(obj, 5);
+	newAdd(9);//18
+	//5
+	//2
+	//9
+	//2
 
+band的polyfill
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	if(!('band' in Function.prototype)){
+		Function.prototype.bind = function(){
+			var fn = this;
+			var context = arguments[0];
+			var args = Array.prototype.slice.call(arguments,1);
+			return function(){
+				return fn.apply(context,args);
+			}
+		}	
+	}
 
 
 
