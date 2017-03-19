@@ -119,11 +119,28 @@ shutdown -r +30 'will reboot 30minutes' 提示30分钟后重启
 
 p211页
 
+-rw-r--r--
+ -文件d目录l软链接
+ u所有者g所属组o其他人
+ r读w写x执行
 
+查询目录内容
+ls [选项] [文件或目录]
+-a 显示所有文件
+-l 显示详细信息
+-d 显示目录行
+-h 人性化
+-i 显示inode
 
+mkdir dir 创建目录
+mkdir -p dir1/dir2 递归创建目录
+rm -rf 强制递归删除文件目录
+cp -a orindir todir 递归复制目录连带复制属性
+mv oridir todir 剪切或改名
 
+ctrl+l xshell 清屏
 
-
+pwd 显示当前所在目录
 
 
 
