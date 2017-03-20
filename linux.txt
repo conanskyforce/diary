@@ -137,29 +137,112 @@ mkdir -p dir1/dir2 递归创建目录
 rm -rf 强制递归删除文件目录
 cp -a orindir todir 递归复制目录连带复制属性
 mv oridir todir 剪切或改名
-
+touch file 创建文件
 ctrl+l xshell 清屏
 
 pwd 显示当前所在目录
 
+ln -s oridir todir 软链接到新目录,就是windows的快捷方式
+ln orifile tofile 硬链接文件,互相引用，通过inode信息区分
 
+文件搜索
+1.locate
+locate 文件名
+locate命令默认在/var/lib/mlocate 中的数据库搜索，每天更新一次
+updatedb 手动更新数据库
+只能搜索文件名
+locate搜索配置文件
+/etc/updatedb.conf
+PRUNE_BIND_MOUNTS = "yes"
+#开启搜索限制
+PRUNEFS =
+#不搜索的文件系统
+PRUNEPATHS =
+#不搜索的文件路径
+2.whereis 与 which
+搜索命令程序在哪里
+whereis 命令名
+-b 只看执行文件
+-m 只看帮助文件
+whereis locate
+locate: /usr/bin/locate /usr/share/man/man1/locate.1.gz
+whereis ls
+ls: /bin/ls /usr/share/man/man1/ls.1.gz /usr/share/man/man1p/ls.1p.gz
+which ls 能看到别名
+alias ls='ls --color=auto'
+	/bin/ls
+which locate
+/usr/bin/locate
 
+环境变量$PATH，这些目录里边的程序可以直接用程序名执行，就不用加上目录了
+echo $PATH
 
+3.find
+find [范围] [搜索条件]
+find / -iname install.log 按文件名搜索确定文件名,加i不区分大小写
+*匹配任意文件
+?单独字符
+[]括号内任意一个
+find / -user root 按所有者搜索
+find / -nouser 搜索没有所有者的文件
+find / -mtime +10 10天前修改的文件
+mtime 修改时间
+ctime 创建时间
+atime 访问时间
+find / -size +25k 按大小搜索
+find / -size +25M
+find / -inum inode 按inode节点信息搜索
+4.grep
+grep [选项] 字符串 文件名
+grep -i 'a' install 文件中搜索字符串
 
+linux 6.1 压缩命令
 
+yum命令
+yum list 搜索yum源可以安装的包
+yum search 关键字 搜索关键字的包
+yum -y install 包名(自动回答yes)
 
+升级
+yum -y update 自动回答升级
+卸载
+yum -y remove 包名
 
+ps命令
+ps -aux 显示所有包含其他使用的进程
+ps -ef 显示当前所有进程环境变量及进程间关系
+ps -A 显示当前所有进程
+ps -aux | grep apache 查找某进程
 
+kill命令
+kill -9 $(ps -ef|grep pro1) 找到pro1进程然后强制结束该进程
 
+df 命令
+df -l 显示磁盘使用情况
+de -haT 显示磁盘文件系统及使用情况
 
+du命令，查看的是文件夹或磁盘
+du -l dir
 
+free命令，查看内存使用情况
+free 显示内存使用情况以K为单位
 
+linux文件组
+linux文件中任何一个文件都有[user group others]三种身份的个别权限
+账号信息，root信息都记录在/etc/passwd文件内
+个人密码记录在/etc/shadow文件中
+组记录在/etc/group中
 
+su - 切换root用户
+ls -alh 显示所有文件详细信息
 
-
-
-
-
+chgrp 改变文件所属组
+chgrp -R newgrp file/dir 递归改变所属组为newgrp
+chown 改变文件拥有者
+chown -R newowner file/dir 递归改变文件拥有者
+chown [- R]  账号名称 文件 或目录
+chown [- R]  账号名称:组名 文件或目录
+chmod 改变文件权限
 
 
 
