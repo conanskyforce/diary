@@ -2285,31 +2285,117 @@ band的polyfill
 		}	
 	}
 
+call方法实质上是调用Function.prototype.call方法，因此上面的表达式可以用bind方法改写。
 
+var slice = Function.prototype.call.bind(Array.prototype.slice);
 
+slice([1, 2, 3], 0, 1) // [1]
 
+func.call(obj)----->call(func,obj);
 
+获取实例对象obj的原型对象的几种方法
+obj.__proto__
+obj.constructor.prototype
+Object.getPrototypeOf(obj)
 
+#OOP
+1.构造函数的继承
+	1).在之类的构造函数中调用父类的构造函数
+	function Sub(value){
+		Super.call(this);
+		this.prop = ....;
+	}
 
+	2).让之类的原型指向父类的原型
+	Sub.prototype = Object.create(Super.prototype)
+	Sub.prototype.constructor = Sub;
+	Sub.prototype.xxx=xxxx;
 
+	或者
+	Sub.prototype = new Super();
+	
+2.多重继承
 
+3.模块
+封装私有变量
 
+	function StringBuilder(){
+		var buffer = [];
+		this.add = function(str){
+			buffer.push(str);
+		};
+		this.toString = function(){
+			return buffer.join('');	
+		};
+	}
+	上述写法可以优化下公有属性，将公有属性写到原型链上去
+	改为
+	function StringBuilder(){
+		this._buffer = [];
+	}
+	StringBuilder.prototype = {
+		constructor:StringBuilder,
+		add:function(str){
+			this._buffer.push(str);
+		},
+		toString:function(){
+			return this._buffer.join('');
+		}
+	};
 
+##Immediately-Invoked Function Expression，IIFE
+JavaScript的模块就是一个IIFE,为的是封装私有变量和避免全局污染
 
+模块的放大模式(模块很大需要分为几个部分执行，或者一个模块需要继承另一个模块)
+	var module1 = (function(mod){
+		mod.otherfun = function(){
+		//...
+		};
+		return mod;
+	})(module1);
+	为module1模块添加了一个新方法,然后返回新module模块
 
+宽放大模式(避免不存在的对象加载执行出错，所以||引入空对象)
+IIFE函数传入参数可以是{}
+如下：
+	var momdule1 = (function(mod){
+		//...
+		return mod;
+	})(window.module1||{});
 
+setTimeout()
 
+var t1 = setTimeout(func,1000,arg1,arg2,...);//IE9以下不支持多参数
+polyfill为
+var t1 = setTimeout(function(){func(arg1,arg2,...)},1000);
+或者
+//自定义setTimeout和setInterval
+	<!--[if lte IE 9]><script>
+	(function(f){
+	window.setTimeout =f(window.setTimeout);
+	window.setInterval =f(window.setInterval);
+	})(function(f){
+		return function(c,t){
+			var a=[].slice.call(arguments,2);
+			return f(function(){c.apply(this,a)},t)}
+	});
+	</script><![endif]-->
 
+利用setTimeout和clearTimeout方法，实现debounce方法，用于防止某个函数在短时间内被密集调用
+	function debounce(fn,delay){
+		var timer = null;
+		return function(){
+			var context = this;
+			var args = arguments;
+			clearTimeout(timers);
+			timer = setTimeout(function(){
+				fn.apply(context,args);
+			},delay);
+		};
+	}
 
-
-
-
-
-
-
-
-
-
+setTimeout(f,0)实际上意味着，将任务放到浏览器最早可得的空闲时段执行
+Promise
 
 
 
