@@ -325,17 +325,30 @@ basename 文件名
 dirname 路径名
 
 文件查阅
-cat 从第一行开始显示文件内容
+cat -nb 从第一行开始显示文件内容(加上行号)
 tac 从最后一行开始显示
 nl 显示的时候输出行号
-more 一页一页的显示
-less 与more类似，但可以往前翻页
-head 只看头几行
+more 一页一页的显示(空格:向下一页,enter:向下一行,/字符串:向下搜索这个关键字,:f : 显示文件名及目前显示的行数,q:离开,b:往回翻页)
+less 与more类似，但可以往前翻页(pagedown,pageup前后翻页,/字符串 向下搜寻字符串,/?向上搜寻字符串,n 重复前一个搜寻,N 反向搜寻,g 第一行,G 最后一行)
+head -n 只看头几行(默认10行,可以设置)
+tail -n 只看尾巴几行(默认10行,可以设置)
+od 二进制方式读取文件内容
 
+touch 建立一个空文件,或修改某个文件的日期(mtime和atime)
 
+文件预设权限 ：umask
+新建文件默认没有x权限
+默认umask 0022
+新建文件权限为
+-rw-r--r--
+drwxr-xr-x
+修改umask 0002 后
+-rw-rw-r--
+drwxrwxr-x
 
-
-
+如果umask为003
+-rw-rw-r--
+drwxrwxr--
 
 
 
