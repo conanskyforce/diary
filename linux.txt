@@ -350,11 +350,19 @@ drwxrwxr-x
 -rw-rw-r--
 drwxrwxr--
 
+一般用户的umask默认为002，即保留通群组的写入权利
 
+文件隐藏属性
+chattr +i file 修改属性(+i 根本无法改动,包括root!)
++a 只能增加数据，不能减少数据
 
+lsattr file 查看属性
 
-
-
+文件特殊权限
+SUID,SGID,SBIT
+SUID:binary program 临时获得 root权限(s在文件拥有者哪项,一般针对文件)
+SGID:(s在群组权限,可以针对文件和目录)
+ 
 
 
 
