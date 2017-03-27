@@ -363,6 +363,14 @@ SUID,SGID,SBIT
 SUID:binary program 临时获得 root权限(s在文件拥有者哪项,一般针对文件)
 SGID:(s在群组权限,可以针对文件和目录)
  
+SUID/SGID/SBIT 权限设定
+
+4 为 SUID 
+2 为 SGID
+1 为 SBIT
+
+file 判断文件为什么基本格式
+
 
 
 
