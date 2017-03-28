@@ -371,6 +371,33 @@ SUID/SGID/SBIT 权限设定
 
 file 判断文件为什么基本格式
 
+find 能够进行额外的动作
+find / -perm /7000 -exec ls -l {} \;
+find /etc -size +50k -a -size -60k -exec ls -l {} \;
+
+#磁盘与文件系统管理
+扇区为最小物理储存单位，依据设计不同，目前主要有512Bytes与4K两种格式,
+MBR分区表限制较多，第一个扇区含有主要开机去与分区表
+GGPT分区变除了分区数量多之外，支持磁盘容量也超过2TB
+
+实体磁盘都被模拟为：dev/sd[a-f]
+虚拟机磁盘为：dev/vd[a-p]
+磁盘阵列：dev/md[0-128]
+LVM：dev/VGNAME/LVNAME
+
+/dev/sd[a-p][1-128]:实体磁盘文件名
+/dev/vd[a-p][1-128]:虚拟磁盘文件名
+
+df 列出文件系统的整体使用量
+du 目录所占容量
+
+lsblk 列出系统上所有磁盘列表
+blkid 找出装置的UUID
+
+MBR分区表fdisk
+GPT分区表gdisk
+
+
 
 
 
