@@ -2397,6 +2397,27 @@ var t1 = setTimeout(function(){func(arg1,arg2,...)},1000);
 setTimeout(f,0)实际上意味着，将任务放到浏览器最早可得的空闲时段执行
 Promise
 
+***
+网页总高度
+document.documentElement.scrollHeight
+document.body.scrollHeight
+
+视口高度
+window.innerHeight//包括滚动条
+document.documentElement.clientHeight//不包括滚动条
+
+某元素距离视口左上角的坐标
+Ele.getBoundingClientRect().left
+
+某元素相对于左上角网页的坐标
+Ele.getBoundingClientRect().left+document.documentElement.scrollLeft
+
+网页目前滚动的距离
+document.documentElement.scrollTop
+
+网页元素本身的高度和宽度通过offset和offsetWidth(包含padding和border)或ele.getBoundingClientRect方法获取
+
+ele.getBoundingClientRecct()方法返回当前元素节点的大小，位置等信息
 
 
 
