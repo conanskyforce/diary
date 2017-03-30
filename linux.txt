@@ -409,6 +409,8 @@ GPT分区表gdisk
 *.tar.bz2 tar程序打包bzip2压缩
 *.tar.xz tar程序打包xz压缩
 
+gzip -v dir/file //压缩
+gzip -d xx.gz //解压缩
 
 
 
