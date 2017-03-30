@@ -398,8 +398,16 @@ MBR分区表fdisk
 GPT分区表gdisk
 
 
+#文件与文件系统的压缩，打包，备份
 
-
+*.Z compress程序压缩的文件
+*.zip zip程序压缩的文件
+*.gz gzip程序压缩的文件
+*.bz2 bzip2程序压缩的文件
+*.tar tar程序打包的文件
+*.tar.gz tar程序打包gzip程序压缩
+*.tar.bz2 tar程序打包bzip2压缩
+*.tar.xz tar程序打包xz压缩
 
 
 
