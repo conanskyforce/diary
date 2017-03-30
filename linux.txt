@@ -409,11 +409,35 @@ GPT分区表gdisk
 *.tar.bz2 tar程序打包bzip2压缩
 *.tar.xz tar程序打包xz压缩
 
-gzip -v dir/file //压缩
+
+v-可视化
+c-输出到屏幕
+d-解压缩
+k-保留源文件
+gzip -v file //压缩
+gzip -vc file>file.gz //压缩不删除原文件
 gzip -d xx.gz //解压缩
 
 
+gzip/bzip2/xz file //压缩文件
+gzip/bzip2/xz -d xx.gz/xx.bz2/xx.xz //解压缩
+gzip/bzip2/xz -cv file>file //保留源文件的压缩
 
+tar打包
+c-创建打包
+x-解打包
+v-可视化
+f-后边接文件
+z-gzip
+j-bzip2
+J-zx
+C-重定向解压文件夹
+tar -zcvf file/dir.tar.gz file/dir //打包gz
+tar -jcvf file/dir.tar.bz2 file/dir //打包bzip2
+
+
+tar -zxvf file/dir.tar.gz -C todir //解压缩gzip
+tar -jxvf file/dir.tar.bz2 -C todir //解压缩bz2
 
 
 
