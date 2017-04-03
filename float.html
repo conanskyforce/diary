@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.container{
+			background-color: white;
+			border:solid 2px grey;
+		}
+		.bg,.md,.sm,.clear{
+			width: 80px;
+			height: 40px;
+			opacity: 0.5;
+			margin:15px;
+			text-align: center;
+			font-size: 30px;
+			float: left;
+		}
+		.bg{
+			background-color: red;
+		}
+		.md{
+			background-color: blue;
+		}
+		.sm{
+			background-color: yellow;
+		}
+		.clear{
+			background-color: grey;
+		}
+		.clx{
+			clear: both;
+		}
+		.clearf:after{
+			content:'';
+			height:0;
+			visibility:hidden;
+			display:block;
+			clear:both;
+		} 
+		.image{
+			margin:10px;
+			width: 120px;
+			height: 90px;
+			clear: both;
+			background-image: url(E:/fenotes/img/7.jpg);
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			background-clip: content-box;
+			border:4px solid rgba(239,239,239,0.7);
+			box-shadow: 4px 3px 3px #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div class="container clearf">
+		<div class="bg">1</div>
+		<div class="md">2</div>
+		<div class="sm">3</div>
+		<div class="clear" style="clear: both">4</div>
+		<!-- <div class="clx"></div> -->
+		<div class="image"></div>
+	</div>
+	<script>
+	window.onload=function(){
+		var pic = document.getElementsByClassName('image')[0];
+		pic.addEventListener('click',function(){
+			cc = this.style.borderColor;
+			if (cc==="red"){
+				this.style.borderColor="whitesmoke";
+				cc = this.style.borderColor;
+			}else{
+				this.style.borderColor="red";
+				cc = this.style.borderColor;
+			}
+			console.log(this);
+		},false)
+		
+	}
+	</script>
+</body>
+</html>
