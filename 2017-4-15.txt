@@ -46,8 +46,16 @@ login.php
 FALLBACK:
 /html/ /offline.html
 
+Web Worker
+typeof(Worker)!=='undefined';//检测浏览器是否支持它
 
+在外部JavaScript中创建web worker
+postMessage(s);//向HTML主js传回一段信息
 
+检测并创建一个 web worker,创建一个web worker，执行xxx.js内容
+if(typeof(Worker) !== 'undefined'){
+  w = new Worker('xxx.js');
+}
 
 
 
