@@ -57,9 +57,28 @@ if(typeof(Worker) !== 'undefined'){
   w = new Worker('xxx.js');
 }
 
+添加一个onmessage事件监听器
+w.onmessage=function(e){
+e.data;//储存web worker发送的数据
+}
 
+终止 web worker
+w.terminate()
 
+复用web worker
+w=undefined
 
+示例：
+if(typeof(Worker)!=='undefined'){
+  if(typeof(w)=='undefined'){
+    w = new worker('xxx.js');
+  }
+  w.onmessage = function(e){
+    //handle with e.data;
+  }
+}else{
+  //don't support web worker
+}
 
 
 
