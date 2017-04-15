@@ -16,3 +16,54 @@ shiv解决方案，让不认识新标签的浏览器也能正确的显示
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 
+html5本地储存，应用程序数据可以储存在本地，
+提供了两个客户端储存数据的对象
+window.localStorage和window.sessionStorage
+前者没有截止日期，后者针对一个session来储存数据，当浏览器标签关闭时(刷新不会)，数据丢失
+
+设置
+localStorage.setItem('key','val');
+sessionStorage.setItem('key','val');
+也可以
+localStorage.key=val;
+获取
+localStorage.getItem('key');
+
+删除
+localStorage.removeItem('key');
+
+完整的Cache Manifest文件
+CACHE MANIFEST 
+#2017.4.15.14:28
+CACHE:
+/theme.css
+/js/main.js
+/index.html
+
+NETWORK:
+login.php
+
+FALLBACK:
+/html/ /offline.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
