@@ -1,0 +1,18 @@
+﻿HTML5的意义
+
+html5是最新的html标准，相比之前的标准，html5拥有更简单的使用方法，转为承载丰富的web内容而设计，有很多丰富的自带插件，拥有新的语义，图形及媒体元素，提供了新的api，同时也是跨平台的。
+
+1.文档申明非常简化，直接<!doctype html>就行了
+2.新增语义化标签<header><footer>等，对网页结构，维护，搜索引擎都有很好的帮助
+3.音频，视频<audio><video>的增加
+4.表单进行了大量修改，增加了很多新的属性
+5.强大的绘图功能，canvas和svg
+6.html5允许属性简写，不加引号，加单引号，加双引号
+7.增加了很多api比如本地储存代替cookie
+
+shiv解决方案，让不认识新标签的浏览器也能正确的显示
+在head标签里边添加
+<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
