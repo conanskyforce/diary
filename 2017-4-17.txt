@@ -42,9 +42,16 @@ vertical-align:bottom;//设置垂直对齐方式，底对齐
 
 outline:color solid width;//设置轮廓
 
+CSS盒模型
+width和height指的是内容区域的宽度和高度，而ie的怪异模式
+width和height包括了padding和border.(box-sizing:border-box)
 
+CSS的背景延伸到内边距和边框
 
-
+外边距合并
+1.垂直方向上两个外边距相遇，会合并
+2.一个元素包含在另一个之类，也会合并
+3.空元素自身外边距合并
 
 
 
