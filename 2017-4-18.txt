@@ -21,17 +21,53 @@ font-family:xxx;
 src:url('xxx.ttf'),url('xxx.eot');
 }
 
+CSS3 2D转换
+transform:
+translate(x,y);
+rotate(xxdeg);
+scale(1.5);
+skew();//沿着x，y扭曲
+matrix();
+transform-origin:50%,50%;//默认几何中心
 
+CSS3 3D转换
+transform:
+rotateX(xxdeg);
+rotateY(xxdeg);
+rotateZ(xxdeg);
 
+CSS3 过渡
+transition:all 2s linear 0s;
 
+CSS3 动画
+定义动画
+@keyframes myanima
+{
+from {}
+to {}
+}
 
+@keyframes myanima
+{
+0% {}
+25% {}
+50% {}
+100% {}
+}
+div{
+animation:myanima 2s;
+}
 
+CSS3 多列
+div{
+column-count:3;
+column-gap:20px;
+column-rule:3px outset #fff;
+}
 
-
-
-
-
-
+CSS3 用户界面
+resize规定是否可由用户调整尺寸
+box-sizing规定width包不包括padding和border
 
 
 
