@@ -439,11 +439,24 @@ tar -jcvf file/dir.tar.bz2 file/dir //打包bzip2
 tar -zxvf file/dir.tar.gz -C todir //解压缩gzip
 tar -jxvf file/dir.tar.bz2 -C todir //解压缩bz2
 
+VIM
+一般指令模式
+默认进入的模式
+ioar进入编辑模式
+左下角会有 INSERT 字样，esc退出编辑模式
+指令列命令模式
+输入:/?任意一个的时候
 
+100dd 删除100行
+. 重复上一个操作
 
+Shell
+echo 读取变量
+echo $PATH 显示环境变量路径
+myname=CONAN
+echo $myname CONAN
 
-
-
+export 自定义变量转变为环境变量
 
 
 
