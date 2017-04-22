@@ -53,8 +53,16 @@ CSS的背景延伸到内边距和边框
 2.一个元素包含在另一个之类，也会合并
 3.空元素自身外边距合并
 
+CSS定位属性
 
+position (static relative absolute fixed)
+top right bottom left
 
+overflow(hidden auto)
+
+clip(rect(top,right,bottom,left))
+
+z-index(堆叠顺序)
 
 
 
